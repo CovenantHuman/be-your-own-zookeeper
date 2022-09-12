@@ -4,9 +4,16 @@
 {%block body%}
 <h1>Be Your Own Zookeeper</h1>
 <h2>Is the weather good for walking?</h2>
-<form action='/zip-form'>
+<form action="/zip-form" class="get-weather">
     <label for="zipcode">Please enter your zipcode:</label>
     <input type="text" name="zipcode" id="zipcode-field"></input>
     <input type="submit">
 </form>
+
+<div class="weather">
+    <p id="gen-weather"></p>
+</div>
 {%endblock%}
+
+{%block after_body%}<script src="/static/js/weather.js"></script>
+{% endblock %}
