@@ -1,4 +1,12 @@
 {% extends 'base.html' %}
 {% block title %}Be Your Own Zookeeper Home{% endblock %}
 
-{%block body%}<h1>Welcome!</h1>{%endblock%}
+{%block body%}
+<h1>Be Your Own Zookeeper</h1>
+<h2>Is the weather good for walking?</h2>
+<form action='/zip-form'>
+    <label for="zipcode">Please enter your zipcode:</label>
+    <input type="text" name="zipcode" id="zipcode-field"></input>
+    <input type="submit">
+</form>
+{%endblock%}
