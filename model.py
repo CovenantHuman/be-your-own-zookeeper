@@ -11,7 +11,7 @@ class User(db.Model):
 
     __tablename__ = "users"
 
-    user_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    user_id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String, nullable=False)
     password = db.Column(db.String, nullable=False)
     name = db.Column(db.String)
@@ -93,6 +93,8 @@ def connect_to_db(flask_app, db_uri="postgresql:///zookeeper", echo=True):
     db.init_app(flask_app)
 
     print("Connected to the db!")
+
+
 
 if __name__ == "__main__":
     from server import app
