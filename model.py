@@ -3,6 +3,7 @@
 from math import remainder
 from time import daylight
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.dialects.postgresql import UUID
 
 db = SQLAlchemy()
 
@@ -11,10 +12,10 @@ class User(db.Model):
 
     __tablename__ = "users"
 
-    user_id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.UUID(asuuid=True), primary_key=True)
     email = db.Column(db.String, nullable=False)
     password = db.Column(db.String, nullable=False)
-    name = db.Column(db.String)
+    name = db.Column(db.String, nullable=False)
     zipcode = db.Column(db.String)
     phone = db.Column(db.String)
     max_temp = db.Column(db.Integer)
