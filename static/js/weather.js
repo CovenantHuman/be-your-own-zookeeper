@@ -83,5 +83,20 @@ weatherForm.addEventListener('submit', (evt) => {
         <p>It ${isSnowing()} snowing.</p>
         <p>It ${isDaylight()} between sunrise and sunset.</p>
         `;
+
+    if (walking === "It is not walking weather.") {
+        document.querySelector(".alternate").innerHTML = `
+        <h4>Here are some alternate activities to try:</h4>
+        <ul>
+            <li>Yoga</li>
+            <li>Jumping Jacks</li>
+            <li>Sit Ups</li>
+            <li>Private Dance Party</li>
+            <li>Push Ups</li>
+        </ul>
+        `;
+    } else {
+        document.querySelector(".alternate").innerHTML = "";
+    }
   });
 });
