@@ -10,6 +10,9 @@
     {% block head %}{% endblock %}
   </head>
   <body>
+    <nav>
+      <a href="#">Log In</a>
+    </nav>
     {% for msg in get_flashed_messages() %}
     <p class="flash-msg">
       {{ msg }}
