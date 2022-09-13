@@ -12,6 +12,15 @@ function convertMetersPerSecondToMilesAnHour(metersPerSecond) {
     return Math.round(metersPerSecond*2.237);
 }
 
+function isWalkingWeather(temp, wind, rain, snow, daylight) {
+     if ((60 < temp < 80) && (wind < 18) && (rain !== "is") && (snow !== "is")
+      && (daylight === "is")) {
+        return "It is walking weather!";
+    } else {
+        return "It is not walking weather."
+    }
+}
+
 const weatherForm = document.querySelector('.get-weather');
 
 weatherForm.addEventListener('submit', (evt) => {
@@ -57,8 +66,11 @@ weatherForm.addEventListener('submit', (evt) => {
         }
     }
 
+    const walking = isWalkingWeather(currentTempF, wind, isRaining(), isSnowing(), isDaylight());
+
     document.querySelector('.weather').innerHTML = 
-        `<p>The current weather is: ${weatherTitle}. </p>
+        `<h3>${walking}</h3>
+        <p>The current weather is: ${weatherTitle}. </p>
         <p>The current temperature is ${currentTempC}
         degrees celsius or ${currentTempF} degrees fahrenheit. </p>
         <p>It feels like ${feelsLikeC} degrees celsius or ${feelsLikeF}

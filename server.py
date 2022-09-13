@@ -19,13 +19,11 @@ def homepage():
 def get_weather():
     """Take in the zipcode and gets the weather"""
     zipcode = request.args.get("zipcode")
-    print("ZIPCODE IS", zipcode)
     zip_with_country_code = zipcode + ",us"
     url = "https://api.openweathermap.org/data/2.5/weather"
     payload = {"zip": zip_with_country_code, "appid": OPEN_WEATHER_KEY}
     response = requests.get(url, params=payload)
     data = response.json()
-    print(data)
     return jsonify(data)
 
 
