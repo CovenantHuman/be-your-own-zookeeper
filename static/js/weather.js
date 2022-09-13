@@ -13,8 +13,8 @@ function convertMetersPerSecondToMilesAnHour(metersPerSecond) {
 }
 
 function isWalkingWeather(temp, wind, rain, snow, daylight) {
-     if ((60 < temp < 80) && (wind < 18) && (rain !== "is") && (snow !== "is")
-      && (daylight === "is")) {
+     if ((60 < temp) && ( temp < 80) && (wind < 18) && (rain !== "is") && 
+     (snow !== "is") && (daylight === "is")) {
         return "It is walking weather!";
     } else {
         return "It is not walking weather."
@@ -59,14 +59,14 @@ weatherForm.addEventListener('submit', (evt) => {
         }
     }
     const isDaylight = () => {
-        if( serverData.sys.sunrise < serverData.dt < serverData.sys.sunset) {
+        if((serverData.sys.sunrise < serverData.dt) && ( serverData.dt < serverData.sys.sunset)) {
             return "is";
         } else {
             return "is not";
         }
     }
 
-    const walking = isWalkingWeather(currentTempF, wind, isRaining(), isSnowing(), isDaylight());
+    const walking = isWalkingWeather(feelsLikeF, wind, isRaining(), isSnowing(), isDaylight());
 
     document.querySelector('.weather').innerHTML = 
         `<h3>${walking}</h3>
