@@ -30,11 +30,16 @@ def create_account():
     name = request.form.get("name")
     email = request.form.get("email")
     password = request.form.get("password")
-    user = crud.create_user(email, password, name)
-    db.session.add(user)
-    db.session.commit()
-    flash("Thanks for creating an account! Please login.")
-    return redirect("/")
+    if crud.get_user_by_email(email):
+        flash("An account with this email already exists. Please login.")
+        return redirect("/")
+    else:
+        user = crud.create_user(email, password, name)
+        db.session.add(user)
+        db.session.commit()
+        flash("Thanks for creating an account! Please login.")
+        return redirect("/")
+
 
 @app.route("/zip-form")
 def get_weather():
