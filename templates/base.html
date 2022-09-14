@@ -11,7 +11,12 @@
   </head>
   <body>
     <nav>
-      <a href="#">Log In</a> <a href="/new-account">Create an Account</a>
+      {% if "user_id" in session %}
+      <a href="/logout">Log Out</a>
+      {% else %}
+      <a href="/login">Log In</a> 
+      <a href="/new-account">Create an Account</a>
+      {% endif %}
     </nav>
     {% for msg in get_flashed_messages() %}
     <p class="flash-msg">
