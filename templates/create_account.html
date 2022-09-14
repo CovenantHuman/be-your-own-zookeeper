@@ -2,4 +2,15 @@
 {% block title %}Create a Be Your Own Zookeeper Account{% endblock %}
 
 {% block body %}
+<h1>Create an Account!</h1>
+<form action="/create-account" method="POST" class="new-account">
+    <label for="name">What name would you like us to call you?</label>
+    <input type="text" name="name"> <br>
+    <label for="email">Please enter an email address:</label>
+    <input type="email" name="email"> <br>
+    <label for="password">Please select a password:</label>
+    <input type="password" name="password">
+    <input type="submit">
+</form>
+
 {% endblock %}

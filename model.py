@@ -1,7 +1,5 @@
 """Models for Be Your Own Zookeeper"""
 
-from math import remainder
-from time import daylight
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.postgresql import UUID
 
@@ -12,7 +10,7 @@ class User(db.Model):
 
     __tablename__ = "users"
 
-    user_id = db.Column(db.UUID(asuuid=True), primary_key=True)
+    user_id = db.Column(UUID(as_uuid=True), primary_key=True)
     email = db.Column(db.String, nullable=False)
     password = db.Column(db.String, nullable=False)
     name = db.Column(db.String, nullable=False)
@@ -42,7 +40,7 @@ class ChecklistItem(db.Model):
     __tablename__= "checklist_items"
 
     item_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable=False)
+    user_id = db.Column(UUID(as_uuid=True), db.ForeignKey("users.user_id"), nullable=False)
     category = db.Column(db.String)
     question = db.Column(db.String)
     advice = db.Column(db.String)
@@ -58,7 +56,7 @@ class Event(db.Model):
     __tablename__= "events"
 
     event_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable=False)
+    user_id = db.Column(UUID(as_uuid=True), db.ForeignKey("users.user_id"), nullable=False)
     event_type = db.Column(db.String)
     time = db.Column(db.DateTime)
     description = db.Column(db.String)
@@ -76,7 +74,7 @@ class Activity(db.Model):
     __tablename__= "activities"
 
     activity_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.user_id"), nullable=False)
+    user_id = db.Column(UUID(as_uuid=True), db.ForeignKey("users.user_id"), nullable=False)
     name = db.Column(db.String)
     description = db.Column(db.String)
 
