@@ -33,7 +33,7 @@ weatherForm.addEventListener('submit', (evt) => {
   fetch(`/zip-form?${queryString}`)
   .then(response => response.json())
   .then(serverData => {
-    const weatherTitle = serverData.weather[0].main;
+    const weatherDescription = serverData.weather[0].description;
     const currentTemp = serverData.main.temp;
     const currentTempC = convertKelvinToCelsius(currentTemp);
     const currentTempF = convertKelvinToFahrenheit(currentTemp);
@@ -70,7 +70,7 @@ weatherForm.addEventListener('submit', (evt) => {
 
     document.querySelector('.weather').innerHTML = 
         `<h3>${walking}</h3>
-        <p>The current weather is: ${weatherTitle}. </p>
+        <p>The current weather is ${weatherDescription}. </p>
         <p>The current temperature is ${currentTempC}
         degrees celsius or ${currentTempF} degrees fahrenheit. </p>
         <p>It feels like ${feelsLikeC} degrees celsius or ${feelsLikeF}
