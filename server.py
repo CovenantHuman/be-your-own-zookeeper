@@ -27,13 +27,14 @@ def show_create_account_page():
 def process_create_account():
     """Create a new user account"""
     name = request.form.get("name")
+    zipcode = request.form.get("zipcode")
     email = request.form.get("email")
     password = request.form.get("password")
     if crud.get_user_by_email(email):
         flash("An account with this email already exists. Please login.")
         return redirect("/")
     else:
-        user = crud.create_user(email, password, name)
+        user = crud.create_user(email, password, name, zipcode)
         db.session.add(user)
         db.session.commit()
         flash("Thanks for creating an account! Please login.")
@@ -51,7 +52,7 @@ def process_login():
     password = request.form.get("password")
     user = crud.get_user_by_email(email)
     if pbkdf2_sha256.verify(password, user.password):
-        session['user_id'] = user.user_id
+        session['user_email'] = user.email
         flash('Logged in!')
     else:
         flash('Not logged in!')
@@ -60,7 +61,7 @@ def process_login():
 @app.route("/logout")
 def process_logout():
     """Log out user"""
-    del session['user_id']
+    del session['user_email']
     flash("You have been logged out!")
     return redirect("/")
 

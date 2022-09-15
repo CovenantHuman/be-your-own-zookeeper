@@ -11,7 +11,7 @@
   </head>
   <body>
     <nav>
-      {% if "user_id" in session %}
+      {% if "user_email" in session %}
       <a href="/logout">Log Out</a>
       {% else %}
       <a href="/login">Log In</a> 

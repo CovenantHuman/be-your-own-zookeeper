@@ -5,11 +5,13 @@
 <h1>Create an Account!</h1>
 <form action="/create-account" method="POST" class="new-account">
     <label for="name">What name would you like us to call you?</label>
-    <input type="text" name="name" id="name"> <br>
+    <input type="text" name="name" id="name" required> <br>
+    <label for="zipcode">What zipcode do you want walking information for?</label>
+    <input type="text" name="zipcode" id="zipcode" required> <br>
     <label for="email">Please enter an email address:</label>
-    <input type="email" name="email" id="email"> <br>
+    <input type="email" name="email" id="email" required> <br>
     <label for="password">Please select a password:</label>
-    <input type="password" name="password" id="password">
+    <input type="password" name="password" id="password" required>
     <input type="submit">
 </form>
 
