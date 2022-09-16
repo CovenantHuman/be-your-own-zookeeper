@@ -85,7 +85,11 @@ function improvedGetWeather(zipcode) {
 
             const walking = isWalkingWeatherImproved(userData, feelsLike, humidity, wind, clouds, isRaining(), isSnowing(), isDaylight());
             displayWeather(walking, weatherDescription, currentTempC, currentTempF, feelsLikeC, feelsLikeF, humidity, wind, imperialWind, clouds, isRaining(), isSnowing(), isDaylight());
+        }).catch(() => {
+            document.querySelector('.weather').innerHTML = "Problem getting user information."
         });
+    }).catch(() => {
+        document.querySelector('.weather').innerHTML = "Problem getting weather information."
     });
 }
 
