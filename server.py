@@ -51,10 +51,14 @@ def process_login():
     email = request.form.get("email")
     password = request.form.get("password")
     user = crud.get_user_by_email(email)
-    if pbkdf2_sha256.verify(password, user.password):
-        session['user_email'] = user.email
-        flash('Logged in!')
-        return render_template("/user_homepage.html", name=user.name, zipcode=user.zipcode)
+    if user:
+        if pbkdf2_sha256.verify(password, user.password):
+            session['user_email'] = user.email
+            flash('Logged in!')
+            return render_template("/user_homepage.html", name=user.name, zipcode=user.zipcode)
+        else:
+            flash('Not logged in!')
+            return redirect("/")
     else:
         flash('Not logged in!')
         return redirect("/")
