@@ -1,10 +1,10 @@
 'use strict';
-import getWeather from "./weather.js"; 
+import improvedGetWeather from "./weather.js"; 
 
 document.addEventListener('DOMContentLoaded', () => {
 
   const zipcode = document.querySelector('#zipcode-field').value;
-  getWeather(zipcode)
+  improvedGetWeather(zipcode)
 });
 
 
@@ -14,5 +14,5 @@ weatherForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
 
   const zipcode = document.querySelector('#zipcode-field').value;
-  getWeather(zipcode)
+  improvedGetWeather(zipcode)
 });

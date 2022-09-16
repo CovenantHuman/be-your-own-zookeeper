@@ -12,16 +12,38 @@ function convertMetersPerSecondToMilesAnHour(metersPerSecond) {
     return Math.round(metersPerSecond*2.237);
 }
 
-function isWalkingWeather(temp, wind, rain, snow, daylight) {
-     if ((60 < temp) && ( temp < 80) && (wind < 18) && (rain !== "is") && 
-     (snow !== "is") && (daylight === "is")) {
-        return "It is walking weather!";
+function isWalkingWeatherImproved(user, tempInKelvin, humidity, windInMetric, clouds, rain, snow, daylight) {
+    let temp;
+
+    if (user.is_fahrenheit) {
+        temp = convertKelvinToFahrenheit(tempInKelvin);
     } else {
-        return "It is not walking weather."
+        temp = convertKelvinToCelsius(tempInKelvin);
     }
+
+    let wind;
+
+    if (user.is_imperial) {
+        wind = convertMetersPerSecondToMilesAnHour(windInMetric);
+    } else {
+        wind = windInMetric;
+    }
+
+    if ((user.max_temp >= temp) && 
+        (user.min_temp <= temp) &&
+        (user.max_hum >= humidity) &&
+        (user.max_wind_speed >= wind) &&
+        (user.max_clouds >= clouds) &&
+        (user.min_clouds <= clouds) &&
+        (user.rain === rain) &&
+        (user.snow === snow)) {
+            return ((user.daylight === daylight) || (user.night !== daylight));
+        } else {
+            return false;
+        }
 }
 
-function getWeather(zipcode) {
+function improvedGetWeather(zipcode) {
     const queryString = new URLSearchParams(
         {zipcode : zipcode}).toString();
 
@@ -41,30 +63,60 @@ function getWeather(zipcode) {
         const clouds = serverData.clouds.all;
         const isRaining = () => {
             if (serverData.rain){
-                return "is";
+                return true;
             } else {
-                return "is not";
+                return false;
             }
         }
         const isSnowing = () => {
             if (serverData.snow){
-                return "is";
+                return true;
             } else {
-                return "is not";
+                return false;
             }
         }
         const isDaylight = () => {
-            if((serverData.sys.sunrise < serverData.dt) && ( serverData.dt < serverData.sys.sunset)) {
-                return "is";
-            } else {
-                return "is not";
-            }
+            return ((serverData.sys.sunrise < serverData.dt) && ( serverData.dt < serverData.sys.sunset)) 
         }
+        
+        fetch(`/api/user`)
+        .then(response => response.json())
+        .then(userData => {
 
-        const walking = isWalkingWeather(feelsLikeF, wind, isRaining(), isSnowing(), isDaylight());
+            const walking = isWalkingWeatherImproved(userData, feelsLike, humidity, wind, clouds, isRaining(), isSnowing(), isDaylight());
+            displayWeather(walking, weatherDescription, currentTempC, currentTempF, feelsLikeC, feelsLikeF, humidity, wind, imperialWind, clouds, isRaining(), isSnowing(), isDaylight());
+        });
+    });
+}
 
-        document.querySelector('.weather').innerHTML = 
-            `<h3>${walking}</h3>
+function displayWeather(walking, weatherDescription, currentTempC, currentTempF, feelsLikeC, feelsLikeF, humidity, wind, imperialWind, clouds, rain, snow, daylight){
+    let rainState;
+    if (rain) {
+        rainState = "is"
+    } else {
+        rainState = "is not"
+    }
+    let snowState;
+    if (snow) {
+        snowState = "is"
+    } else {
+        snowState = "is not"
+    }
+    let dayState;
+    if (daylight) {
+        dayState = "is"
+    } else {
+        dayState = "is not"
+    }
+    let walkingWeather
+    if (walking) {
+        walkingWeather = "It is walking weather!"
+    } else {
+        walkingWeather = "It is not walking weather."
+    }
+
+    document.querySelector('.weather').innerHTML = 
+            `<h3>${walkingWeather}</h3>
             <p>The current weather is ${weatherDescription}. </p>
             <p>The current temperature is ${currentTempC}
             degrees celsius or ${currentTempF} degrees fahrenheit. </p>
@@ -74,12 +126,12 @@ function getWeather(zipcode) {
             <p>The wind speed is ${wind} meters/second or ${imperialWind}
             miles/hour.</p>
             <p>It is ${clouds}% cloudy.</p>
-            <p>It ${isRaining()} raining.</p>
-            <p>It ${isSnowing()} snowing.</p>
-            <p>It ${isDaylight()} between sunrise and sunset.</p>
+            <p>It ${rainState} raining.</p>
+            <p>It ${snowState} snowing.</p>
+            <p>It ${dayState} between sunrise and sunset.</p>
             `;
 
-        if (walking === "It is not walking weather.") {
+        if (!walking) {
             document.querySelector(".alternate").innerHTML = `
             <h4>Here are some alternate activities to try:</h4>
             <ul>
@@ -93,7 +145,6 @@ function getWeather(zipcode) {
         } else {
             document.querySelector(".alternate").innerHTML = "";
         }
-    });
 }
 
-export default getWeather; 
+export default improvedGetWeather; 

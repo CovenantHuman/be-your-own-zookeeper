@@ -77,6 +77,37 @@ def process_get_weather():
     data = response.json()
     return jsonify(data)
 
+@app.route("/api/user")
+def process_get_user():
+    if "user_email" in session:
+        user = crud.get_user_by_email(session["user_email"])
+        return jsonify({"max_temp": user.max_temp,
+                        "min_temp": user.min_temp,
+                        "is_fahrenheit": user.is_fahrenheit,
+                        "max_hum": user.max_hum,
+                        "max_wind_speed": user.max_wind_speed,
+                        "is_imperial": user.is_imperial,
+                        "max_clouds": user.max_clouds,
+                        "min_clouds": user.min_clouds,
+                        "rain": user.rain,
+                        "snow": user.snow,
+                        "daylight": user.daylight,
+                        "night": user.night})
+    else:
+        return jsonify({"max_temp": 80,
+                        "min_temp": 60,
+                        "is_fahrenheit": True,
+                        "max_hum": 100,
+                        "max_wind_speed": 18,
+                        "is_imperial": True,
+                        "max_clouds": 100,
+                        "min_clouds": 0,
+                        "rain": False,
+                        "snow": False,
+                        "daylight": True,
+                        "night": False})
+
+
 if __name__ == "__main__":
     connect_to_db(app)
     
