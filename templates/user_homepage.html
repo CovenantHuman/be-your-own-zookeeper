@@ -1,20 +1,19 @@
 {% extends 'base.html' %}
-{% block title %}Be Your Own Zookeeper Home{% endblock %}
+{% block title %} {{name}}'s Be Your Own Zookeeper Home{% endblock %}
 
 {%block body%}
-<h1>Be Your Own Zookeeper</h1>
+<h1>Welcome to Be Your Own Zookeeper, {{name}}!</h1>
 <h2>Is the weather good for walking?</h2>
 <form action="/zip-form" class="get-weather">
     <label for="zipcode-field">Please enter your zipcode:</label>
-    <input type="text" name="zipcode" id="zipcode-field"></input>
+    <input type="text" name="zipcode" id="zipcode-field" value="{{zipcode}}"></input>
     <input type="submit">
 </form>
-
 <div class="weather">
 </div>
 <div class="alternate">
 </div>
 {%endblock%}
 
-{%block after_body%}<script type="module" src="/static/js/homepage.js"></script>
+{%block after_body%} <script type="module" src="/static/js/homepage.js"></script>
 {% endblock %}

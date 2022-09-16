@@ -54,9 +54,10 @@ def process_login():
     if pbkdf2_sha256.verify(password, user.password):
         session['user_email'] = user.email
         flash('Logged in!')
+        return render_template("/user_homepage.html", name=user.name, zipcode=user.zipcode)
     else:
         flash('Not logged in!')
-    return redirect("/")
+        return redirect("/")
 
 @app.route("/logout")
 def process_logout():
@@ -75,8 +76,6 @@ def process_get_weather():
     response = requests.get(url, params=payload)
     data = response.json()
     return jsonify(data)
-
-
 
 if __name__ == "__main__":
     connect_to_db(app)
