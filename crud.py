@@ -10,19 +10,7 @@ def create_user(email, password, name, zipcode):
                 email=email, 
                 password=pbkdf2_sha256.hash(password), 
                 name=name, 
-                zipcode=zipcode,
-                max_temp=80,
-                min_temp=60,
-                is_fahrenheit=True,
-                max_hum=100,
-                max_wind_speed=18,
-                is_imperial=True,
-                max_clouds=100,
-                min_clouds=0,
-                rain=False,
-                snow=False,
-                daylight=True,
-                night=False)
+                zipcode=zipcode)
     return user
 
 def get_user_by_email(email):

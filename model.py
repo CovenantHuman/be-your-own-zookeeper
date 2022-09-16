@@ -1,5 +1,6 @@
 """Models for Be Your Own Zookeeper"""
 
+from email.policy import default
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.postgresql import UUID
 
@@ -16,18 +17,18 @@ class User(db.Model):
     name = db.Column(db.String, nullable=False)
     zipcode = db.Column(db.String, nullable=False)
     phone = db.Column(db.String)
-    max_temp = db.Column(db.Integer)
-    min_temp = db.Column(db.Integer)
-    is_fahrenheit = db.Column(db.Boolean)
-    max_hum = db.Column(db.Integer)
-    max_wind_speed = db.Column(db.Integer)
-    is_imperial = db.Column(db.Boolean)
-    max_clouds = db.Column(db.Integer)
-    min_clouds = db.Column(db.Integer)
-    rain = db.Column(db.Boolean)
-    snow = db.Column(db.Boolean)
-    daylight = db.Column(db.Boolean)
-    night = db.Column(db.Boolean)
+    max_temp = db.Column(db.Integer, default=80)
+    min_temp = db.Column(db.Integer, default=60)
+    is_fahrenheit = db.Column(db.Boolean, default=True)
+    max_hum = db.Column(db.Integer, default=100)
+    max_wind_speed = db.Column(db.Integer, default=18)
+    is_imperial = db.Column(db.Boolean, default=True)
+    max_clouds = db.Column(db.Integer, default=100)
+    min_clouds = db.Column(db.Integer, default=0)
+    rain = db.Column(db.Boolean, default=False)
+    snow = db.Column(db.Boolean, default=False)
+    daylight = db.Column(db.Boolean, default=True)
+    night = db.Column(db.Boolean, default=False)
 
     checklist_items = db.relationship("ChecklistItem", back_populates="user")
     events = db.relationship("Event", back_populates="user")
