@@ -12,7 +12,14 @@ function convertMetersPerSecondToMilesAnHour(metersPerSecond) {
     return Math.round(metersPerSecond*2.237);
 }
 
-function isWalkingWeatherImproved(user, tempInKelvin, humidity, windInMetric, clouds, rain, snow, daylight) {
+function isWalkingWeatherImproved(user, 
+                                  tempInKelvin, 
+                                  humidity, 
+                                  windInMetric, 
+                                  clouds, 
+                                  rain, 
+                                  snow, 
+                                  daylight) {
     let temp;
 
     if (user.is_fahrenheit) {
@@ -83,8 +90,27 @@ function improvedGetWeather(zipcode) {
         .then(response => response.json())
         .then(userData => {
 
-            const walking = isWalkingWeatherImproved(userData, feelsLike, humidity, wind, clouds, isRaining(), isSnowing(), isDaylight());
-            displayWeather(walking, weatherDescription, currentTempC, currentTempF, feelsLikeC, feelsLikeF, humidity, wind, imperialWind, clouds, isRaining(), isSnowing(), isDaylight());
+            const walking = isWalkingWeatherImproved(userData, 
+                                                    feelsLike, 
+                                                    humidity, 
+                                                    wind, 
+                                                    clouds, 
+                                                    isRaining(), 
+                                                    isSnowing(), 
+                                                    isDaylight());
+            displayWeather(walking, 
+                           weatherDescription, 
+                           currentTempC, 
+                           currentTempF, 
+                           feelsLikeC, 
+                           feelsLikeF, 
+                           humidity, 
+                           wind, 
+                           imperialWind, 
+                           clouds, 
+                           isRaining(), 
+                           isSnowing(), 
+                           isDaylight());
         }).catch(() => {
             document.querySelector('.weather').innerHTML = "Problem getting user information."
         });
@@ -93,7 +119,19 @@ function improvedGetWeather(zipcode) {
     });
 }
 
-function displayWeather(walking, weatherDescription, currentTempC, currentTempF, feelsLikeC, feelsLikeF, humidity, wind, imperialWind, clouds, rain, snow, daylight){
+function displayWeather(walking, 
+                        weatherDescription, 
+                        currentTempC, 
+                        currentTempF, 
+                        feelsLikeC, 
+                        feelsLikeF, 
+                        humidity, 
+                        wind, 
+                        imperialWind, 
+                        clouds, 
+                        rain, 
+                        snow, 
+                        daylight){
     let rainState;
     if (rain) {
         rainState = "is"
