@@ -12,7 +12,7 @@ function convertMetersPerSecondToMilesAnHour(metersPerSecond) {
     return Math.round(metersPerSecond*2.237);
 }
 
-function isWalkingWeatherImproved(user, 
+function isWalkingWeather(user, 
                                   tempInKelvin, 
                                   humidity, 
                                   windInMetric, 
@@ -74,7 +74,7 @@ function isWalkingWeatherImproved(user,
         }
 }
 
-function improvedGetWeather(zipcode) {
+function getWeather(zipcode) {
     const queryString = new URLSearchParams(
         {zipcode : zipcode}).toString();
 
@@ -114,7 +114,7 @@ function improvedGetWeather(zipcode) {
         .then(response => response.json())
         .then(userData => {
 
-            const walking = isWalkingWeatherImproved(userData, 
+            const walking = isWalkingWeather(userData, 
                                                     feelsLike, 
                                                     humidity, 
                                                     wind, 
@@ -213,4 +213,4 @@ function displayWeather(walking,
         }
 }
 
-export default improvedGetWeather; 
+export default getWeather; 

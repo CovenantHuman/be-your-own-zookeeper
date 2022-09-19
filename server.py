@@ -181,7 +181,7 @@ def process_get_user():
                         "min_temp": 60,
                         "is_fahrenheit": True,
                         "max_hum": 100,
-                        "max_wind_speed": 18,
+                        "max_wind_speed": 4,
                         "is_imperial": True,
                         "max_clouds": 100,
                         "min_clouds": 0,
