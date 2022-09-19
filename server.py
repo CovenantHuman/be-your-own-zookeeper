@@ -86,9 +86,60 @@ def show_weather_preferences():
                             day=user.daylight,
                             night=user.night)
 
-@app.route("/update_weather_preferences")
+@app.route("/update-weather-preferences", methods=["POST"])
 def set_weather_preferences():
     """Set weather preferences"""
+    temp_unit = request.form.get("temp_unit")
+    if temp_unit == "fahrenheit":
+        temp_unit = True
+    else:
+        temp_unit = False
+    max_temp = request.form.get("max_temp")
+    min_temp = request.form.get("min_temp")
+    max_hum = request.form.get("humidity")
+    wind_unit = request.form.get("wind_unit")
+    if wind_unit == "imperial":
+        wind_unit = True
+    else:
+        wind_unit = False
+    max_wind_speed = request.form.get("wind")
+    max_clouds = request.form.get("max_clouds")
+    min_clouds = request.form.get("min_clouds")
+    rain = request.form.get("rain")
+    if rain == "true":
+        rain = True
+    else:
+        rain = False
+    snow = request.form.get("snow")
+    if snow == "true":
+        snow = True
+    else:
+        snow = False
+    time = request.form.get("time")
+    if time == "both":
+        day = True
+        night = True
+    elif time == "day":
+        day = True
+        night = False
+    else:
+        day = False
+        night = True
+    user = crud.get_user_by_email(session["user_email"])
+    user.is_fahrenheit = temp_unit
+    user.max_temp = max_temp
+    user.min_temp = min_temp
+    user.max_hum = max_hum
+    user.is_imperial = wind_unit
+    user.max_wind_speed = max_wind_speed
+    user.max_clouds = max_clouds
+    user.min_clouds = min_clouds
+    user.rain = rain
+    user.snow = snow
+    user.daylight = day
+    user.night = night
+    db.session.commit()
+    flash("Settings updated!")
     return redirect("/user-homepage")
 
 @app.route("/logout")

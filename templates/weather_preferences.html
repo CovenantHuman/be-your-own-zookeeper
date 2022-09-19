@@ -3,7 +3,7 @@
 
 {% block body %}
 <h1>Weather Preferences</h1>
-<form action="/update_weather_preferences" class="weather_preferences">
+<form action="/update-weather-preferences" class="weather_preferences" method="POST">
     {% if temp_unit == true %}
     <fieldset>
         <legend>Temperature Units:</legend>

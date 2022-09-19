@@ -31,19 +31,43 @@ function isWalkingWeatherImproved(user,
     let wind;
     wind = convertMetersPerSecondToMilesAnHour(windInMetric);
 
-    const wind_speed_lookup = {0: 0, 1: 3, 2: 7, 3: 12, 4: 18, 5: 24, 6: 31, 7: 38}
-    let max_wind_speed;
+    const windSpeedLookup = {0: 0, 1: 3, 2: 7, 3: 12, 4: 18, 5: 24, 6: 31, 7: 38}
+    let maxWindSpeed;
 
-    max_wind_speed = wind_speed_lookup[user.max_wind_speed]
+    maxWindSpeed = windSpeedLookup[user.max_wind_speed]
+
+    let rainFilter; 
+
+    if (user.rain === true) {
+        rainFilter = true
+    } else {
+        if (rain === false) {
+            rainFilter = true
+        } else {
+            rainFilter = false
+        }
+    }
+
+    let snowFilter; 
+
+    if (user.snow === true) {
+        snowFilter = true
+    } else {
+        if (snow === false) {
+            snowFilter = true
+        } else {
+            snowFilter = false
+        }
+    }
 
     if ((user.max_temp >= temp) && 
         (user.min_temp <= temp) &&
         (user.max_hum >= humidity) &&
-        (max_wind_speed >= wind) &&
+        (maxWindSpeed >= wind) &&
         (user.max_clouds >= clouds) &&
         (user.min_clouds <= clouds) &&
-        (user.rain === rain) &&
-        (user.snow === snow)) {
+        (rainFilter) &&
+        (snowFilter)) {
             return ((user.daylight === daylight) || (user.night !== daylight));
         } else {
             return false;
