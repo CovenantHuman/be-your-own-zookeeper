@@ -1,5 +1,4 @@
 """Server for self care app."""
-
 from flask import(Flask, render_template, request, flash, session, redirect, jsonify)
 from jinja2 import StrictUndefined
 import requests
@@ -55,13 +54,42 @@ def process_login():
         if pbkdf2_sha256.verify(password, user.password):
             session['user_email'] = user.email
             flash('Logged in!')
-            return render_template("/user_homepage.html", name=user.name, zipcode=user.zipcode)
+            return redirect("/user-homepage")
         else:
             flash('Not logged in!')
             return redirect("/")
     else:
         flash('Not logged in!')
         return redirect("/")
+
+@app.route("/user-homepage")
+def show_user_homepage():
+    """Show user logged in homepage"""
+    user = crud.get_user_by_email(session["user_email"])
+    return render_template("/user_homepage.html", name=user.name, zipcode=user.zipcode)
+
+@app.route("/weather-preferences")
+def show_weather_preferences():
+    """Show weather preferences page"""
+    user = crud.get_user_by_email(session["user_email"])
+    return render_template("weather_preferences.html", 
+                            temp_unit=user.is_fahrenheit, 
+                            max_temp=user.max_temp, 
+                            min_temp=user.min_temp,
+                            max_hum=user.max_hum,
+                            wind_unit=user.is_imperial,
+                            max_wind_speed=user.max_wind_speed,
+                            max_clouds=user.max_clouds,
+                            min_clouds=user.min_clouds,
+                            rain=user.rain,
+                            snow=user.snow,
+                            day=user.daylight,
+                            night=user.night)
+
+@app.route("/update_weather_preferences")
+def set_weather_preferences():
+    """Set weather preferences"""
+    return redirect("/user-homepage")
 
 @app.route("/logout")
 def process_logout():

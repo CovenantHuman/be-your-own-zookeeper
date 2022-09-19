@@ -21,7 +21,7 @@ class User(db.Model):
     min_temp = db.Column(db.Integer, default=60)
     is_fahrenheit = db.Column(db.Boolean, default=True)
     max_hum = db.Column(db.Integer, default=100)
-    max_wind_speed = db.Column(db.Integer, default=18)
+    max_wind_speed = db.Column(db.Integer, default=4)
     is_imperial = db.Column(db.Boolean, default=True)
     max_clouds = db.Column(db.Integer, default=100)
     min_clouds = db.Column(db.Integer, default=0)

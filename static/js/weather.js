@@ -29,17 +29,17 @@ function isWalkingWeatherImproved(user,
     }
 
     let wind;
+    wind = convertMetersPerSecondToMilesAnHour(windInMetric);
 
-    if (user.is_imperial) {
-        wind = convertMetersPerSecondToMilesAnHour(windInMetric);
-    } else {
-        wind = windInMetric;
-    }
+    const wind_speed_lookup = {0: 0, 1: 3, 2: 7, 3: 12, 4: 18, 5: 24, 6: 31, 7: 38}
+    let max_wind_speed;
+
+    max_wind_speed = wind_speed_lookup[user.max_wind_speed]
 
     if ((user.max_temp >= temp) && 
         (user.min_temp <= temp) &&
         (user.max_hum >= humidity) &&
-        (user.max_wind_speed >= wind) &&
+        (max_wind_speed >= wind) &&
         (user.max_clouds >= clouds) &&
         (user.min_clouds <= clouds) &&
         (user.rain === rain) &&
