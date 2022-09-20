@@ -14,5 +14,5 @@ weatherForm.addEventListener('submit', (evt) => {
   evt.preventDefault();
 
   const zipcode = document.querySelector('#zipcode-field').value;
-  improvedGetWeather(zipcode)
+  getWeather(zipcode)
 });
