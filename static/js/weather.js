@@ -31,32 +31,32 @@ function isWalkingWeather(user,
     let wind;
     wind = convertMetersPerSecondToMilesAnHour(windInMetric);
 
-    const windSpeedLookup = {0: 0, 1: 3, 2: 7, 3: 12, 4: 18, 5: 24, 6: 31, 7: 38}
+    const windSpeedLookup = {0: 0, 1: 3, 2: 7, 3: 12, 4: 18, 5: 24, 6: 31, 7: 38};
     let maxWindSpeed;
 
-    maxWindSpeed = windSpeedLookup[user.max_wind_speed]
+    maxWindSpeed = windSpeedLookup[user.max_wind_speed];
 
     let rainFilter; 
 
     if (user.rain === true) {
-        rainFilter = true
+        rainFilter = true;
     } else {
         if (rain === false) {
-            rainFilter = true
+            rainFilter = true;
         } else {
-            rainFilter = false
+            rainFilter = false;
         }
     }
 
     let snowFilter; 
 
     if (user.snow === true) {
-        snowFilter = true
+        snowFilter = true;
     } else {
         if (snow === false) {
-            snowFilter = true
+            snowFilter = true;
         } else {
-            snowFilter = false
+            snowFilter = false;
         }
     }
 
@@ -122,15 +122,29 @@ function getWeather(zipcode) {
                                                     isRaining(), 
                                                     isSnowing(), 
                                                     isDaylight());
+            let displayTemp;
+            let displayFeels;
+            let displayWind;
+            if (userData.is_fahrenheit === true) {
+                displayTemp = currentTempF;
+                displayFeels = feelsLikeF;
+            } else {
+                displayTemp = currentTempC;
+                displayFeels = feelsLikeC;
+            }
+            if(userData.is_imperial === true) {
+                displayWind = imperialWind;
+            } else {
+                displayWind = wind;
+            }
             displayWeather(walking, 
                            weatherDescription, 
-                           currentTempC, 
-                           currentTempF, 
-                           feelsLikeC, 
-                           feelsLikeF, 
+                           displayTemp,
+                           displayFeels,
+                           userData.is_fahrenheit, 
                            humidity, 
-                           wind, 
-                           imperialWind, 
+                           displayWind, 
+                           userData.is_imperial,
                            clouds, 
                            isRaining(), 
                            isSnowing(), 
@@ -145,52 +159,63 @@ function getWeather(zipcode) {
 
 function displayWeather(walking, 
                         weatherDescription, 
-                        currentTempC, 
-                        currentTempF, 
-                        feelsLikeC, 
-                        feelsLikeF, 
+                        displayTemp,
+                        displayFeels, 
+                        isFahrenheit,
                         humidity, 
-                        wind, 
-                        imperialWind, 
+                        displayWind, 
+                        isImperial,
                         clouds, 
                         rain, 
                         snow, 
                         daylight){
+
+    let tempUnit;
+    if (isFahrenheit) {
+        tempUnit = "degrees Fahrenheit";
+    } else {
+        tempUnit = "degrees Celsius";
+    }
+
+    let windUnit;
+    if (isImperial) {
+        windUnit = "miles per hour"
+    } else {
+        windUnit = "meters per second"
+    }
+
     let rainState;
     if (rain) {
-        rainState = "is"
+        rainState = "is";
     } else {
-        rainState = "is not"
+        rainState = "is not";
     }
     let snowState;
     if (snow) {
-        snowState = "is"
+        snowState = "is";
     } else {
-        snowState = "is not"
+        snowState = "is not";
     }
     let dayState;
     if (daylight) {
-        dayState = "is"
+        dayState = "is";
     } else {
-        dayState = "is not"
+        dayState = "is not";
     }
-    let walkingWeather
+    let walkingWeather;
     if (walking) {
-        walkingWeather = "It is walking weather!"
+        walkingWeather = "It is walking weather!";
     } else {
-        walkingWeather = "It is not walking weather."
+        walkingWeather = "It is not walking weather.";
     }
 
     document.querySelector('.weather').innerHTML = 
             `<h3>${walkingWeather}</h3>
             <p>The current weather is ${weatherDescription}. </p>
-            <p>The current temperature is ${currentTempC}
-            degrees celsius or ${currentTempF} degrees fahrenheit. </p>
-            <p>It feels like ${feelsLikeC} degrees celsius or ${feelsLikeF}
-            degrees fahrenheit.</p> 
+            <p>The current temperature is ${displayTemp} ${tempUnit}.</p>
+            <p>It feels like ${displayFeels} ${tempUnit}.</p> 
             <p>The humidity is currently ${humidity}%.</p>
-            <p>The wind speed is ${wind} meters/second or ${imperialWind}
-            miles/hour.</p>
+            <p>The wind speed is ${displayWind} ${windUnit}.</p>
             <p>It is ${clouds}% cloudy.</p>
             <p>It ${rainState} raining.</p>
             <p>It ${snowState} snowing.</p>
