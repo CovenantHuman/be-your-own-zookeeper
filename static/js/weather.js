@@ -122,6 +122,7 @@ function getWeather(zipcode) {
                                                     isRaining(), 
                                                     isSnowing(), 
                                                     isDaylight());
+                                                    
             let displayTemp;
             let displayFeels;
             let displayWind;
