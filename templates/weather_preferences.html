@@ -29,10 +29,17 @@
         </div>
     </fieldset>
     {% endif %}
-    <label for="max_temp">Maximum walking temperature: </label>
-    <input type="number" id="max_temp" name="max_temp" value="{{max_temp}}"> <br>
-    <label for="min_temp">Minimum walking temperature: </label>
-    <input type="number" id="min_temp" name="min_temp" value="{{min_temp}}"> <br>
+    {% if temp_unit == true %}
+        <label for="max_temp">Maximum walking temperature: </label>
+        <input type="number" id="max_temp" name="max_temp" value="{{max_temp}}" max="90" min="0"> <br>
+        <label for="min_temp">Minimum walking temperature: </label>
+        <input type="number" id="min_temp" name="min_temp" value="{{min_temp}}" max="90" min="0"> <br>
+    {% else %}
+        <label for="max_temp">Maximum walking temperature: </label>
+        <input type="number" id="max_temp" name="max_temp" value="{{max_temp}}" max="32" min="-17"> <br>
+        <label for="min_temp">Minimum walking temperature: </label>
+        <input type="number" id="min_temp" name="min_temp" value="{{min_temp}}" max="32" min="-17"> <br>
+    {% endif %}
     <label for="max_hum">Maximum humidity (percentage):</label>
     <input type="number" name="humidity" id="max_hum" value="{{max_hum}}" max="100" min="0"></input>
     {% if wind_unit == true %}
@@ -104,25 +111,9 @@
         {% endif %}
     </select> <br>
     <label for="max_clouds">Maximum cloud cover (percentage):</label>
-    <select name="max_clouds" id="max_clouds">
-        {% for i in range(101) %}
-        {% if max_clouds == i %}
-            <option value={{i}} selected>{{i}}</option>
-        {% else %}
-            <option value={{i}}>{{i}}</option>
-        {% endif %}
-        {% endfor %}
-    </select> <br>
+    <input type="number" name="max_clouds" id="max_clouds" value="{{max_clouds}}" max="100" min="0"></input> <br>
     <label for="min_clouds">Minimum cloud cover (percentage):</label>
-    <select name="min_clouds" id="min_clouds">
-        {% for i in range(101) %}
-        {% if min_clouds == i %}
-            <option value={{i}} selected>{{i}}</option>
-        {% else %}
-            <option value={{i}}>{{i}}</option>
-        {% endif %}
-        {% endfor %}
-    </select> <br>
+    <input type="number" name="min_clouds" id="min_clouds" value="{{min_clouds}}" max="100" min="0"></input> <br>
     {% if rain == true %}
     <fieldset>
         <legend>Rain:</legend>
