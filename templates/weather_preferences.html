@@ -30,19 +30,11 @@
     </fieldset>
     {% endif %}
     <label for="max_temp">Maximum walking temperature: </label>
-    <input type="text" id="max_temp" name="max_temp" value="{{max_temp}}"> <br>
+    <input type="number" id="max_temp" name="max_temp" value="{{max_temp}}"> <br>
     <label for="min_temp">Minimum walking temperature: </label>
-    <input type="text" id="min_temp" name="min_temp" value="{{min_temp}}"> <br>
+    <input type="number" id="min_temp" name="min_temp" value="{{min_temp}}"> <br>
     <label for="max_hum">Maximum humidity (percentage):</label>
-    <select name="humidity" id="max_hum">
-        {% for i in range(101) %}
-            {% if max_hum == i %}
-                <option value={{i}} selected>{{i}}</option>
-            {% else %}
-                <option value={{i}}>{{i}}</option>
-            {% endif %}
-        {% endfor %}
-    </select>
+    <input type="number" name="humidity" id="max_hum" value="{{max_hum}}" max="100" min="0"></input>
     {% if wind_unit == true %}
     <fieldset>
         <legend>Wind Speed Units:</legend>
@@ -235,3 +227,5 @@
     <input type="submit">
 </form>
 {% endblock %}
+
+{% block after_body %}<script src="/static/js/weather_preferences.js"></script>{% endblock %}
