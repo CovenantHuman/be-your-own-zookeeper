@@ -42,7 +42,7 @@ class ChecklistItem(db.Model):
 
     __tablename__= "checklist_items"
 
-    item_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    item_id = db.Column(UUID(as_uuid=True), primary_key=True)
     user_id = db.Column(UUID(as_uuid=True), db.ForeignKey("users.user_id"), nullable=False)
     category = db.Column(db.String)
     question = db.Column(db.String)
@@ -58,7 +58,7 @@ class Event(db.Model):
 
     __tablename__= "events"
 
-    event_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    event_id = db.Column(UUID(as_uuid=True), primary_key=True)
     user_id = db.Column(UUID(as_uuid=True), db.ForeignKey("users.user_id"), nullable=False)
     event_type = db.Column(db.String)
     time = db.Column(db.DateTime)
@@ -76,7 +76,7 @@ class Activity(db.Model):
 
     __tablename__= "activities"
 
-    activity_id = db.Column(db.Integer, autoincrement=True, primary_key=True)
+    activity_id = db.Column(UUID(as_uuid=True), primary_key=True)
     user_id = db.Column(UUID(as_uuid=True), db.ForeignKey("users.user_id"), nullable=False)
     name = db.Column(db.String)
     description = db.Column(db.String)

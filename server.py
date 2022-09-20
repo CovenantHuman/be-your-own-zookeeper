@@ -33,8 +33,9 @@ def process_create_account():
         flash("An account with this email already exists. Please login.")
         return redirect("/")
     else:
-        user = crud.create_user(email, password, name, zipcode)
+        user, checklist = crud.create_user(email, password, name, zipcode)
         db.session.add(user)
+        db.session.add_all(checklist)
         db.session.commit()
         flash("Thanks for creating an account! Please login.")
         return redirect("/")

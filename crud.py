@@ -11,7 +11,8 @@ def create_user(email, password, name, zipcode):
                 password=pbkdf2_sha256.hash(password), 
                 name=name, 
                 zipcode=zipcode)
-    return user
+    checklist = create_default_checklist(user)
+    return user, checklist
 
 def get_user_by_email(email):
     """Find a user by their email."""
@@ -43,6 +44,52 @@ def update_user_weather_preferences(user,
     user.snow = snow
     user.daylight = day
     user.night = night
+
+def create_checklist_item(user, category, question, advice):
+    """Create a new checklist_item."""
+    checklist_item = ChecklistItem(item_id=uuid.uuid4(), 
+                                    user_id = user.user_id,
+                                    category=category, 
+                                    question=question,
+                                    advice=advice)
+    return checklist_item
+
+def create_default_checklist(user):
+    """Create the default checklist items for a new user."""
+    new_checklist = []
+    new_checklist.append(create_checklist_item(user, 
+                                                "Hydration", 
+                                                "Have you had water recently?", 
+                                                "Try drinking a small glass of water. \
+                                                If you realize you're thirsty, go ahead and have more."))
+    new_checklist.append(create_checklist_item(user,
+                                                "Hunger",
+                                                "Have you eaten recently?",
+                                                "Try having a small snack. \
+                                                If you realize you're hungry, go ahead and have more."))
+    new_checklist.append(create_checklist_item(user,
+                                                "Movement",
+                                                "Have you moved your body recently?",
+                                                "Try going for a walk or doing an alternate activity."))
+    new_checklist.append(create_checklist_item(user,
+                                                "Rest",
+                                                "Have you gotten enough sleep recently?",
+                                                "Try lying down for a little while. \
+                                                If you realize you're tired, go ahead and have a longer rest."))
+    new_checklist.append(create_checklist_item(user,
+                                                "Pharmaceuticals",
+                                                "Have you taken all the medications you're supposed to take?",
+                                                "If you can, take them now."))
+    new_checklist.append(create_checklist_item(user,
+                                                "Social",
+                                                "Have you talked to someone you love recently?",
+                                                "Try texting someone you love."))
+    new_checklist.append(create_checklist_item(user,
+                                                "Hygiene",
+                                                "Have you bathed recently?",
+                                                "Try taking a bath or a shower. \
+                                                If you don't have time, try washing your hands and face."))
+    return new_checklist
 
 if __name__ == "__main__":
     from server import app
