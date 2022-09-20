@@ -126,18 +126,19 @@ def set_weather_preferences():
         day = False
         night = True
     user = crud.get_user_by_email(session["user_email"])
-    user.is_fahrenheit = temp_unit
-    user.max_temp = max_temp
-    user.min_temp = min_temp
-    user.max_hum = max_hum
-    user.is_imperial = wind_unit
-    user.max_wind_speed = max_wind_speed
-    user.max_clouds = max_clouds
-    user.min_clouds = min_clouds
-    user.rain = rain
-    user.snow = snow
-    user.daylight = day
-    user.night = night
+    crud.update_user_weather_preferences(user, 
+                                        temp_unit, 
+                                        max_temp, 
+                                        min_temp, 
+                                        max_hum, 
+                                        wind_unit, 
+                                        max_wind_speed, 
+                                        max_clouds, 
+                                        min_clouds, 
+                                        rain, 
+                                        snow, 
+                                        day, 
+                                        night)
     db.session.commit()
     flash("Settings updated!")
     return redirect("/user-homepage")
