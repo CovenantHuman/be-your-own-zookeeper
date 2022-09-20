@@ -107,7 +107,7 @@ function getWeather(zipcode) {
             }
         }
         const isDaylight = () => {
-            return ((serverData.sys.sunrise < serverData.dt) && ( serverData.dt < serverData.sys.sunset)) 
+            return ((serverData.sys.sunrise < serverData.dt) && ( serverData.dt < serverData.sys.sunset));
         }
         
         fetch(`/api/user`)
@@ -151,10 +151,10 @@ function getWeather(zipcode) {
                            isSnowing(), 
                            isDaylight());
         }).catch(() => {
-            document.querySelector('.weather').innerHTML = "Problem getting user information."
+            document.querySelector('.weather').innerHTML = "Problem getting user information.";
         });
     }).catch(() => {
-        document.querySelector('.weather').innerHTML = "Problem getting weather information."
+        document.querySelector('.weather').innerHTML = "Problem getting weather information.";
     });
 }
 
@@ -180,9 +180,9 @@ function displayWeather(walking,
 
     let windUnit;
     if (isImperial) {
-        windUnit = "miles per hour"
+        windUnit = "miles per hour";
     } else {
-        windUnit = "meters per second"
+        windUnit = "meters per second";
     }
 
     let rainState;
