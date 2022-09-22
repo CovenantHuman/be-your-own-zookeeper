@@ -47,6 +47,7 @@ class ChecklistItem(db.Model):
     category = db.Column(db.String)
     question = db.Column(db.String)
     advice = db.Column(db.String)
+    order = db.Column(db.Integer)
 
     user = db.relationship("User", back_populates="checklist_items")
 

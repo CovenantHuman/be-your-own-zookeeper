@@ -144,6 +144,13 @@ def set_weather_preferences():
     flash("Settings updated!")
     return redirect("/user-homepage")
 
+@app.route("/checklist-item/<order>")
+def show_checklist_item(order):
+    """Show a checklist item"""
+    user = crud.get_user_by_email(session['user_email'])
+    checklist_item_count = len(list(user.checklist_items))
+    pass 
+
 @app.route("/logout")
 def process_logout():
     """Log out user"""
