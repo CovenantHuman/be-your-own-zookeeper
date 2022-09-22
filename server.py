@@ -164,6 +164,11 @@ def show_checklist_item(order):
                                         order=item.order,
                                         total=checklist_item_count) 
 
+@app.route("/account-preferences")
+def show_account_preferences():
+    """Show account preferences page"""
+    return render_template("account_preferences.html")
+
 @app.route("/logout")
 def process_logout():
     """Log out user"""
