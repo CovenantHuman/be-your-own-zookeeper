@@ -148,7 +148,12 @@ def set_weather_preferences():
 def show_checklist_item(order):
     """Show a checklist item"""
     user = crud.get_user_by_email(session['user_email'])
-    checklist_item_count = len(list(user.checklist_items))
+    checklist_list = list(user.checklist_items)
+    checklist_item_count = len(checklist_list)
+    if order >= checklist_item_count:
+        return render_template("") #TODO: put checklist ending page here!
+    else:
+        return render_template("checklist.html", ) #TODO: add desired parameters
     pass 
 
 @app.route("/logout")
