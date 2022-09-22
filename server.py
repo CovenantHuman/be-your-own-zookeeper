@@ -150,11 +150,19 @@ def show_checklist_item(order):
     user = crud.get_user_by_email(session['user_email'])
     checklist_list = list(user.checklist_items)
     checklist_item_count = len(checklist_list)
-    if order >= checklist_item_count:
-        return render_template("") #TODO: put checklist ending page here!
+    if int(order) >= checklist_item_count:
+        return render_template("checklist_end.html",
+                                name=user.name,
+                                total=checklist_item_count)
     else:
-        return render_template("checklist.html", ) #TODO: add desired parameters
-    pass 
+        for item in checklist_list:
+            if item.order == int(order):
+                return render_template("checklist.html", 
+                                        name=user.name,
+                                        question=item.question, 
+                                        advice=item.advice,
+                                        order=item.order,
+                                        total=checklist_item_count) 
 
 @app.route("/logout")
 def process_logout():
@@ -176,6 +184,7 @@ def process_get_weather():
 
 @app.route("/api/user")
 def process_get_user():
+    """Get user from session and jsonify them"""
     if "user_email" in session:
         user = crud.get_user_by_email(session["user_email"])
         return jsonify({"max_temp": user.max_temp,
