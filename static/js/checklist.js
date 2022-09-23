@@ -13,6 +13,6 @@ checklistNo.addEventListener('click', (evt) => {
   const checklistYes = document.querySelector('.yes-option')
   const advice = document.querySelector('.advice');
   advice.style.display = "block";
-  checklistYes.setAttribute("class", "disabled");
-  checklistNo.setAttribute("class", "disabled");
+  checklistYes.style.display = "none";
+  checklistNo.style.display = "none";
 });

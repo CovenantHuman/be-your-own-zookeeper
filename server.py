@@ -144,6 +144,13 @@ def set_weather_preferences():
     flash("Weathe settings updated!")
     return redirect("/user-homepage")
 
+@app.route("/checklist-start")
+def show_checklist_landing_page():
+    """Show checklist landing page"""
+    user = crud.get_user_by_email(session['user_email'])
+    return render_template("checklist_start.html", name=user.name)
+    pass
+
 @app.route("/checklist-item/<order>")
 def show_checklist_item(order):
     """Show a checklist item"""
