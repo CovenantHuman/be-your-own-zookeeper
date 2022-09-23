@@ -139,7 +139,7 @@ function getWeather(zipcode) {
                 displayWind = wind;
             }
 
-            activities = userData.activities
+            const activities = userData.activities
 
             displayWeather(walking, 
                            weatherDescription, 
@@ -234,7 +234,9 @@ function displayWeather(walking,
             <ul class="activities">
             </ul>
             `;
-            document.querySelector(".activities"). //TODO:add to end the new li with each new activity in a for loop.
+            for (const activity of activities) {
+                document.querySelector(".activities").insertAdjacentHTML("beforeend", `<li>${activity}</li>`) 
+            }
         } else {
             document.querySelector(".alternate").innerHTML = "";
         }

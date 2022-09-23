@@ -6,6 +6,7 @@ import os
 import crud
 from model import connect_to_db, db
 from passlib.hash import pbkdf2_sha256
+import json
 
 app = Flask(__name__)
 app.secret_key = "dev"
@@ -237,6 +238,9 @@ def process_get_user():
     """Get user from session and jsonify them"""
     if "user_email" in session:
         user = crud.get_user_by_email(session["user_email"])
+        activities = []
+        for activity in user.activities:
+            activities.append(activity.name)
         return jsonify({"max_temp": user.max_temp,
                         "min_temp": user.min_temp,
                         "is_fahrenheit": user.is_fahrenheit,
@@ -248,7 +252,8 @@ def process_get_user():
                         "rain": user.rain,
                         "snow": user.snow,
                         "daylight": user.daylight,
-                        "night": user.night})
+                        "night": user.night,
+                        "activities": activities})
     else:
         return jsonify({"max_temp": 80,
                         "min_temp": 60,
@@ -261,7 +266,12 @@ def process_get_user():
                         "rain": False,
                         "snow": False,
                         "daylight": True,
-                        "night": False})
+                        "night": False,
+                        "activities": ["Yoga", 
+                                        "Jumping jacks",
+                                        "Sit ups",
+                                        "Private dance party",
+                                        "Push ups"]})
 
 
 if __name__ == "__main__":
