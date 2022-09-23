@@ -138,6 +138,9 @@ function getWeather(zipcode) {
             } else {
                 displayWind = wind;
             }
+
+            activities = userData.activities
+
             displayWeather(walking, 
                            weatherDescription, 
                            displayTemp,
@@ -149,7 +152,8 @@ function getWeather(zipcode) {
                            clouds, 
                            isRaining(), 
                            isSnowing(), 
-                           isDaylight());
+                           isDaylight(),
+                           activities);
         }).catch(() => {
             document.querySelector('.weather').innerHTML = "Problem getting user information.";
         });
@@ -169,7 +173,8 @@ function displayWeather(walking,
                         clouds, 
                         rain, 
                         snow, 
-                        daylight){
+                        daylight,
+                        activities){
 
     let tempUnit;
     if (isFahrenheit) {
@@ -226,14 +231,10 @@ function displayWeather(walking,
         if (!walking) {
             document.querySelector(".alternate").innerHTML = `
             <h4>Here are some alternate activities to try:</h4>
-            <ul>
-                <li>Yoga</li>
-                <li>Jumping Jacks</li>
-                <li>Sit Ups</li>
-                <li>Private Dance Party</li>
-                <li>Push Ups</li>
+            <ul class="activities">
             </ul>
             `;
+            document.querySelector(".activities"). //TODO:add to end the new li with each new activity in a for loop.
         } else {
             document.querySelector(".alternate").innerHTML = "";
         }

@@ -1,5 +1,6 @@
 """Crud operations"""
 
+from venv import create
 from model import db, User, ChecklistItem, Event, Activity, connect_to_db
 import uuid
 from passlib.hash import pbkdf2_sha256
@@ -12,7 +13,8 @@ def create_user(email, password, name, zipcode):
                 name=name, 
                 zipcode=zipcode)
     checklist = create_default_checklist(user)
-    return user, checklist
+    activities = create_default_activities(user)
+    return [user, checklist, activities]
 
 def get_user_by_email(email):
     """Find a user by their email."""
@@ -109,6 +111,23 @@ def create_default_checklist(user):
                                                 If you don't have time, try washing your hands and face.",
                                                 7))
     return new_checklist
+
+def create_activity(user, name):
+    """Create a new activity."""
+    activity = Activity(activity_id=uuid.uuid4(), 
+                        user_id = user.user_id,
+                        name=name)
+    return activity
+
+def create_default_activities(user):
+    """Create a list of default activities."""
+    activities = []
+    activities.append(create_activity(user, "Yoga"))
+    activities.append(create_activity(user, "Jumping jacks"))
+    activities.append(create_activity(user, "Sit ups"))
+    activities.append(create_activity(user, "Private dance party"))
+    activities.append(create_activity(user, "Push ups"))
+    return activities
 
 if __name__ == "__main__":
     from server import app

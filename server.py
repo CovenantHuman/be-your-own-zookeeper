@@ -33,9 +33,10 @@ def process_create_account():
         flash("An account with this email already exists. Please login.")
         return redirect("/")
     else:
-        user, checklist = crud.create_user(email, password, name, zipcode)
+        user, checklist, activities = crud.create_user(email, password, name, zipcode)
         db.session.add(user)
         db.session.add_all(checklist)
+        db.session.add_all(activities)
         db.session.commit()
         flash("Thanks for creating an account! Please login.")
         return redirect("/")
@@ -149,7 +150,6 @@ def show_checklist_landing_page():
     """Show checklist landing page"""
     user = crud.get_user_by_email(session['user_email'])
     return render_template("checklist_start.html", name=user.name)
-    pass
 
 @app.route("/checklist-item/<order>")
 def show_checklist_item(order):

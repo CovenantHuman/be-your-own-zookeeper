@@ -80,7 +80,6 @@ class Activity(db.Model):
     activity_id = db.Column(UUID(as_uuid=True), primary_key=True)
     user_id = db.Column(UUID(as_uuid=True), db.ForeignKey("users.user_id"), nullable=False)
     name = db.Column(db.String)
-    description = db.Column(db.String)
 
     user = db.relationship("User", back_populates="activities")
 
