@@ -141,7 +141,7 @@ def set_weather_preferences():
                                         day, 
                                         night)
     db.session.commit()
-    flash("Settings updated!")
+    flash("Weathe settings updated!")
     return redirect("/user-homepage")
 
 @app.route("/checklist-item/<order>")
@@ -167,7 +167,45 @@ def show_checklist_item(order):
 @app.route("/account-preferences")
 def show_account_preferences():
     """Show account preferences page"""
-    return render_template("account_preferences.html")
+    user = crud.get_user_by_email(session['user_email'])
+    return render_template("account_preferences.html",
+                            name=user.name,
+                            email=user.email,
+                            zipcode=user.zipcode,
+                            phone=user.phone)
+
+@app.route("/update-account-preferences", methods=["POST"])
+def update_account_preferences():
+    """Update user's account preferences"""
+    user = crud.get_user_by_email(session["user_email"])
+    email = request.form.get("email")
+    name = request.form.get("name")
+    zipcode = request.form.get("zipcode")
+    phone = request.form.get("phone")
+    crud.update_user_account_preferences(user, name, email, zipcode, phone)
+    db.session.commit()
+    flash("Account settings updated!")
+    return redirect("/user-homepage")
+
+@app.route("/update-password", methods=["POST"])
+def update_password():
+    """Update user password"""
+    old_password = request.form.get("old_password")
+    new_password = request.form.get("new_password")
+    confirm_password = request.form.get("confirm_password")
+    user = crud.get_user_by_email(session["user_email"])
+    if pbkdf2_sha256.verify(old_password, user.password):
+        if new_password == confirm_password:
+            crud.update_user_password(user, new_password)
+            db.session.commit()
+            flash("Password updated!")
+            return redirect("/user-homepage")
+        else:
+            flash("New password must match confirm password.")
+            return redirect("/account-preferences")
+    else:
+        flash("Password incorrect. Please try again.")
+        return redirect("/account-preferences")
 
 @app.route("/logout")
 def process_logout():

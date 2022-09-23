@@ -45,6 +45,17 @@ def update_user_weather_preferences(user,
     user.daylight = day
     user.night = night
 
+def update_user_account_preferences(user, name, email, zipcode, phone):
+    """Update user account preferences"""
+    user.name = name
+    user.email = email
+    user.zipcode = zipcode
+    user.phone = phone
+
+def update_user_password(user, password):
+    """Update user password"""
+    user.password=pbkdf2_sha256.hash(password)
+    
 def create_checklist_item(user, category, question, advice, order):
     """Create a new checklist_item."""
     checklist_item = ChecklistItem(item_id=uuid.uuid4(), 

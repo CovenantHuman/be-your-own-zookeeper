@@ -16,7 +16,7 @@ class User(db.Model):
     password = db.Column(db.String, nullable=False)
     name = db.Column(db.String, nullable=False)
     zipcode = db.Column(db.String, nullable=False)
-    phone = db.Column(db.String)
+    phone = db.Column(db.String, default="")
     max_temp = db.Column(db.Integer, default=80)
     min_temp = db.Column(db.Integer, default=60)
     is_fahrenheit = db.Column(db.Boolean, default=True)
