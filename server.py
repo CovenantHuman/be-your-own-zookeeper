@@ -150,11 +150,30 @@ def set_weather_preferences():
 def show_alternate_activities():
     """Show alternate activities editing page"""
     user = crud.get_user_by_email(session['user_email'])
-    activities = []
+    names = []
     for activity in user.activities:
-        activities.append(activity.name)
-    return render_template("alternate_activities.html", activities=activities)
+        names.append(activity.name)
+    return render_template("alternate_activities.html", names=names)
 
+@app.route("/remove-alt-act/<name>")
+def remove_alternate_activity(name):
+    """Remove alternate activity"""
+    user = crud.get_user_by_email(session['user_email'])
+    activity = crud.get_activity_by_name(user, name)
+    crud.remove_activity(activity)
+    db.session.commit()
+    flash(f"{name} removed!")
+    return redirect("/alternate-activities")
+
+@app.route("/add-activity", methods=["POST"])
+def add_alternate_activity():
+    user = crud.get_user_by_email(session["user_email"])
+    name = request.form.get("new_activity")
+    new_activity = crud.create_activity(user, name)
+    db.session.add(new_activity)
+    db.session.commit()
+    flash(f"{name} added!")
+    return redirect("/alternate-activities")
 
 @app.route("/checklist-start")
 def show_checklist_landing_page():

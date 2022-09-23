@@ -3,12 +3,12 @@
 
 {% block body %}
 <h1>Edit Alternate Activities</h1>
-<form action="/update-alt-act" method="POST">
-    {% for activity in activities %}
-    <input type="text" name="{{activity}}" id="{{activity}}" value="{{activity}}">
-    <a href="#">Remove</a> <br>
-    {% endfor %}
-    <a href="#">Add an activity</a>
-    <input type="submit">
+{% for name in names %}
+    <a href="/remove-alt-act/{{name}}">Remove {{name}}</a> <br>
+{% endfor %}
+<form action="/add-activity" method="POST">
+    <label for="new_activity">Add a new activity</label>
+    <input type="text" id="new_activity" name="new_activity">
+    <input type="submit"> 
 </form>
 {% endblock %}
