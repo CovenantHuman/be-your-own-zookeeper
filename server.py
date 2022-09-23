@@ -146,6 +146,16 @@ def set_weather_preferences():
     flash("Weathe settings updated!")
     return redirect("/user-homepage")
 
+@app.route("/alternate-activities")
+def show_alternate_activities():
+    """Show alternate activities editing page"""
+    user = crud.get_user_by_email(session['user_email'])
+    activities = []
+    for activity in user.activities:
+        activities.append(activity.name)
+    return render_template("alternate_activities.html", activities=activities)
+
+
 @app.route("/checklist-start")
 def show_checklist_landing_page():
     """Show checklist landing page"""

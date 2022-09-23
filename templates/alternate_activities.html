@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+{% block title %} Edit Alternate Activities {% endblock %}
+
+{% block body %}
+<h1>Edit Alternate Activities</h1>
+<form action="/update-alt-act" method="POST">
+    {% for activity in activities %}
+    <input type="text" name="{{activity}}" id="{{activity}}" value="{{activity}}">
+    <a href="#">Remove</a> <br>
+    {% endfor %}
+    <a href="#">Add an activity</a>
+    <input type="submit">
+</form>
+{% endblock %}
