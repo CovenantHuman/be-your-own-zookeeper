@@ -19,8 +19,8 @@
 <form action="/update-password" class="change_password" method="POST">
     <label for="old_password">Current Password: </label>
     <input type="password" name="old_password" id="old_password" required> <br>
-    <label for="new_password">New Password: </label>
-    <input type="password" name="new_password" id="new_password" required> <br>
+    <label for="new_password">New Password (8 characters minimum): </label>
+    <input type="password" name="new_password" id="new_password" minlength="8" required> <br>
     <label for="confirm_password">Confirm New Password: </label>
     <input type="password" name="confirm_password" id="confirm_password" required> <br>
     <input type="submit">
