@@ -59,11 +59,10 @@ def update_user_password(user, password):
     """Update user password"""
     user.password=pbkdf2_sha256.hash(password)
     
-def create_checklist_item(user, category, question, advice, order):
+def create_checklist_item(user, question, advice, order):
     """Create a new checklist_item."""
     checklist_item = ChecklistItem(item_id=uuid.uuid4(), 
                                     user_id = user.user_id,
-                                    category=category, 
                                     question=question,
                                     advice=advice,
                                     order=order)
@@ -73,40 +72,33 @@ def create_default_checklist(user):
     """Create the default checklist items for a new user."""
     new_checklist = []
     new_checklist.append(create_checklist_item(user, 
-                                                "Hydration", 
                                                 "Have you had water recently?", 
                                                 "Try drinking a small glass of water. \
                                                 If you realize you're thirsty, go ahead and have more.",
                                                 1))
     new_checklist.append(create_checklist_item(user,
-                                                "Hunger",
                                                 "Have you eaten recently?",
                                                 "Try having a small snack. \
                                                 If you realize you're hungry, go ahead and have more.",
                                                 2))
     new_checklist.append(create_checklist_item(user,
-                                                "Movement",
                                                 "Have you moved your body recently?",
                                                 "Try going for a walk or doing an alternate activity.",
                                                 3))
     new_checklist.append(create_checklist_item(user,
-                                                "Rest",
                                                 "Have you gotten enough sleep recently?",
                                                 "Try lying down for a little while. \
                                                 If you realize you're tired, go ahead and have a longer rest.",
                                                 4))
     new_checklist.append(create_checklist_item(user,
-                                                "Pharmaceuticals",
                                                 "Have you taken all the medications you're supposed to take?",
                                                 "If you can, take them now.",
                                                 5))
     new_checklist.append(create_checklist_item(user,
-                                                "Social",
                                                 "Have you talked to someone you love recently?",
                                                 "Try texting someone you love.",
                                                 6))
     new_checklist.append(create_checklist_item(user,
-                                                "Hygiene",
                                                 "Have you bathed recently?",
                                                 "Try taking a bath or a shower. \
                                                 If you don't have time, try washing your hands and face.",

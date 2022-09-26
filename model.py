@@ -44,7 +44,6 @@ class ChecklistItem(db.Model):
 
     item_id = db.Column(UUID(as_uuid=True), primary_key=True)
     user_id = db.Column(UUID(as_uuid=True), db.ForeignKey("users.user_id"), nullable=False)
-    category = db.Column(db.String)
     question = db.Column(db.String)
     advice = db.Column(db.String)
     order = db.Column(db.Integer)
