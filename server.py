@@ -190,11 +190,11 @@ def show_schedule():
 
 @app.route("/new-event")
 def show_add_event_page():
-    """Show add/edit event page"""
+    """Show add event page"""
     return render_template("add_event.html")
 
 @app.route("/add-event", methods=["POST"])
-def add_or_update_event():
+def add_event():
     """Add or update an event"""
     user = crud.get_user_by_email(session["user_email"])
     event_type = request.form.get("event_type")
