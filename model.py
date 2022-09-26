@@ -61,7 +61,7 @@ class Event(db.Model):
     event_id = db.Column(UUID(as_uuid=True), primary_key=True)
     user_id = db.Column(UUID(as_uuid=True), db.ForeignKey("users.user_id"), nullable=False)
     event_type = db.Column(db.String)
-    time = db.Column(db.Time)
+    time = db.Column(db.DateTime)
     description = db.Column(db.String)
     reminder = db.Column(db.Boolean)
     completed = db.Column(db.Boolean, default=False)

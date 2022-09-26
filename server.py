@@ -6,7 +6,7 @@ import os
 import crud
 from model import connect_to_db, db
 from passlib.hash import pbkdf2_sha256
-import json
+import datetime
 
 app = Flask(__name__)
 app.secret_key = "dev"
@@ -192,14 +192,15 @@ def add_or_update_event():
     """Add or update an event"""
     user = crud.get_user_by_email(session["user_email"])
     event_type = request.form.get("event_type")
-    time = request.form.get("time")
+    event_time = request.form.get("time")
+    event_time = datetime.datetime.strptime(event_time, "%H:%M")
     description = request.form.get("description")
     reminder = request.form.get("reminder")
     if reminder is None:
         reminder = False
     else:
         reminder = True 
-    flash(f"{user.email} {event_type} {time} {description} {reminder}")
+    flash(f"{user.email} {event_type} {event_time} {description} {reminder}")
     return redirect("/schedule")
 
 @app.route("/checklist-start")
