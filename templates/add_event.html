@@ -3,8 +3,17 @@
 {% block body %} 
     <h1>Add/Edit Event</h1>
     <form action="/add-event" method="POST">
+        <label for="event_type">Event type:</label>
+        <select name="event_type" id="event_type">
+            <option value="walk">Walk/Alternate Activity</option>
+            <option value="custom">Custom</option>
+        </select><br>
+        <label for="time">Reminder Time:</label>
+        <input type="time" id="time" name="time" required> <br>
         <label for="description">Description: </label>
-        <input type="text" id="description" name="description">
+        <input type="text" id="description" name="description" required><br>
+        <label for="reminder">Click the box to recieve a text reminder:<label>
+        <input type="checkbox" id="reminder" name="reminder">
         <input type="submit">
     </form>
 {% endblock %}

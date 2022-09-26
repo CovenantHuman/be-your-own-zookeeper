@@ -190,8 +190,16 @@ def show_add_event_page():
 @app.route("/add-event", methods=["POST"])
 def add_or_update_event():
     """Add or update an event"""
+    user = crud.get_user_by_email(session["user_email"])
+    event_type = request.form.get("event_type")
+    time = request.form.get("time")
     description = request.form.get("description")
-    flash(f"{description}")
+    reminder = request.form.get("reminder")
+    if reminder is None:
+        reminder = False
+    else:
+        reminder = True 
+    flash(f"{user.email} {event_type} {time} {description} {reminder}")
     return redirect("/schedule")
 
 @app.route("/checklist-start")
