@@ -64,7 +64,7 @@ class Event(db.Model):
     time = db.Column(db.DateTime)
     description = db.Column(db.String)
     reminder = db.Column(db.Boolean)
-    completed = db.Column(db.Boolean)
+    completed = db.Column(db.Boolean, default=False)
 
     user = db.relationship("User", back_populates="events")
 

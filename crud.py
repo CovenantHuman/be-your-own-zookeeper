@@ -130,6 +130,14 @@ def get_activity_by_name(user, name):
 def remove_activity(activity):
     db.session.delete(activity)
     
+def create_event(user, event_type, time, description, reminder):
+    event = Event(event_id=uuid.uuid4(),
+                user_id=user.user_id,
+                event_type=event_type,
+                time=time,
+                description=description,
+                reminder=reminder)
+    return event
 
 if __name__ == "__main__":
     from server import app
