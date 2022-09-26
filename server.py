@@ -180,6 +180,10 @@ def show_schedule():
     user = crud.get_user_by_email(session['user_email'])
     return render_template("schedule.html", name=user.name)
 
+@app.route("/add-event")
+def show_add_event_page():
+    return render_template("add_event.html")
+
 @app.route("/checklist-start")
 def show_checklist_landing_page():
     """Show checklist landing page"""
