@@ -175,6 +175,11 @@ def add_alternate_activity():
     flash(f"{name} added!")
     return redirect("/alternate-activities")
 
+@app.route("/schedule")
+def show_schedule():
+    user = crud.get_user_by_email(session['user_email'])
+    return render_template("schedule.html", name=user.name)
+
 @app.route("/checklist-start")
 def show_checklist_landing_page():
     """Show checklist landing page"""
