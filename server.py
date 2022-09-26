@@ -180,7 +180,13 @@ def add_alternate_activity():
 def show_schedule():
     """Show schedule page"""
     user = crud.get_user_by_email(session['user_email'])
-    return render_template("schedule.html", name=user.name)
+    user_events = user.events
+    sorted_events = sorted(user_events, key= lambda event: event.time)
+    events = []
+    for sorted_event in sorted_events:
+        user_time = sorted_event.time.strftime("%I:%M %p")
+        events.append({"time": user_time, "description": sorted_event.description})
+    return render_template("schedule.html", name=user.name, events=events)
 
 @app.route("/new-event")
 def show_add_event_page():
@@ -200,6 +206,9 @@ def add_or_update_event():
         reminder = False
     else:
         reminder = True 
+    event = crud.create_event(user, event_type, event_time, description, reminder)
+    db.session.add(event)
+    db.session.commit()
     flash(f"{user.email} {event_type} {event_time} {description} {reminder}")
     return redirect("/schedule")
 
