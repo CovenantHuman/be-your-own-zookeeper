@@ -2,5 +2,9 @@
 {% block title %}Add/Edit Event{% endblock %}
 {% block body %} 
     <h1>Add/Edit Event</h1>
-
+    <form action="/add-event" method="POST">
+        <label for="description">Description: </label>
+        <input type="text" id="description" name="description">
+        <input type="submit">
+    </form>
 {% endblock %}

@@ -167,6 +167,7 @@ def remove_alternate_activity(name):
 
 @app.route("/add-activity", methods=["POST"])
 def add_alternate_activity():
+    """Add an alternate activity"""
     user = crud.get_user_by_email(session["user_email"])
     name = request.form.get("new_activity")
     new_activity = crud.create_activity(user, name)
@@ -177,12 +178,21 @@ def add_alternate_activity():
 
 @app.route("/schedule")
 def show_schedule():
+    """Show schedule page"""
     user = crud.get_user_by_email(session['user_email'])
     return render_template("schedule.html", name=user.name)
 
-@app.route("/add-event")
+@app.route("/new-event")
 def show_add_event_page():
+    """Show add/edit event page"""
     return render_template("add_event.html")
+
+@app.route("/add-event", methods=["POST"])
+def add_or_update_event():
+    """Add or update an event"""
+    description = request.form.get("description")
+    flash(f"{description}")
+    return redirect("/schedule")
 
 @app.route("/checklist-start")
 def show_checklist_landing_page():

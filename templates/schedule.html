@@ -2,5 +2,8 @@
 {% block title %}{{name}}'s Schedule{% endblock %}
 {% block body %} 
     <h1>{{name}}'s Schedule</h1>
-    <a href="/add-event">Add an event</a>
+    <a href="/new-event">Add an event</a>
+    {% for event in events %}
+        <p>{{Description}}</p>
+    {% endfor %}
 {% endblock %}
