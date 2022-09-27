@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 {% block title %}{{name}}'s Schedule{% endblock %}
 {% block body %} 
-    <h1>{{name}}'s Schedule</h1>
+    <h1>{{name}}'s Daily Schedule</h1>
     <a href="/new-event">Add an event</a>
     {% for event in events %}
         <p>{{event["time"]}}    {{event["description"]}}</p>
