@@ -238,6 +238,10 @@ def show_checklist_item(order):
                                         order=item.order,
                                         total=checklist_item_count) 
 
+@app.route("/edit-checklist")
+def show_checklist_edit_page():
+    return render_template("checklist_edit.html")
+
 @app.route("/account-preferences")
 def show_account_preferences():
     """Show account preferences page"""
