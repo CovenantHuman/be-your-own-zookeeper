@@ -159,7 +159,7 @@ def show_alternate_activities():
 def remove_alternate_activity(name):
     """Remove alternate activity"""
     user = crud.get_user_by_email(session['user_email'])
-    activity = crud.get_activity_by_name(user, name)
+    activity = crud.get_activity_by_user_and_name(user, name)
     crud.remove_activity(activity)
     db.session.commit()
     flash(f"{name} removed!")
