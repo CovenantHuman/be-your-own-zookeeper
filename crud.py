@@ -1,7 +1,5 @@
 """Crud operations"""
 
-from ast import Delete
-from venv import create
 from model import db, User, ChecklistItem, Event, Activity, connect_to_db
 import uuid
 from passlib.hash import pbkdf2_sha256
@@ -122,7 +120,8 @@ def create_default_activities(user):
     activities.append(create_activity(user, "Push ups"))
     return activities
 
-def get_activity_by_name(user, name):
+def get_activity_by_user_and_name(user, name):
+    """Get activity for a given user by name"""
     for activity in user.activities:
         if activity.name == name:
             return activity
@@ -138,6 +137,10 @@ def create_event(user, event_type, time, description, reminder):
                 description=description,
                 reminder=reminder)
     return event
+
+def get_events_by_time(time):
+    return Event.query.filter(Event.time == time).all()
+
 
 if __name__ == "__main__":
     from server import app
