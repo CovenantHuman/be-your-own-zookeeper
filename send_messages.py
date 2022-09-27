@@ -24,7 +24,8 @@ def message_sender():
 
     events = crud.get_events_by_time(now)
     for event in events:
-        send_message(event.description)
+        if event.reminder:
+            send_message(event.description)
 
 if __name__ == "__main__":
     from server import app
