@@ -11,8 +11,8 @@ def send_message(message):
 
     message = client.messages.create(
                                     body=f"{message}",
-                                    from_='+17087873292',
-                                    to='+17639130524'
+                                    from_= os.environ['FROM_PHONE_NUMBER'],
+                                    to= os.environ['TO_PHONE_NUMBER']
                                     )
 
     print(message.sid)
