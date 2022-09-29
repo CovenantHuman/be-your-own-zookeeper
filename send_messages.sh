@@ -1,1 +1,0 @@
-~/src/be-your-own-zookeeper/env/bin/python3 ~/src/be-your-own-zookeeper/send_messages.py
