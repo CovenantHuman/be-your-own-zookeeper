@@ -120,16 +120,16 @@ def create_default_activities(user):
     activities.append(create_activity(user, "Push ups"))
     return activities
 
-def get_activity_by_user_and_name(user, name):
-    """Get activity for a given user by name"""
-    for activity in user.activities:
-        if activity.name == name:
-            return activity
+def get_activity_by_id(id):
+    """Get activity for a given id"""
+    return Activity.query.filter(Activity.activity_id == id).first()
 
 def remove_activity(activity):
+    """Remove activity"""
     db.session.delete(activity)
     
 def create_event(user, event_type, time, description, reminder):
+    """Create a new event"""
     event = Event(event_id=uuid.uuid4(),
                 user_id=user.user_id,
                 event_type=event_type,
@@ -139,7 +139,16 @@ def create_event(user, event_type, time, description, reminder):
     return event
 
 def get_events_by_time(time):
+    """Get events by time"""
     return Event.query.filter(Event.time == time).all()
+
+def get_event_by_id(id):
+    """Get event for a given id"""
+    return Event.query.filter(Event.event_id == id).first()
+
+def remove_event(event):
+    """Remove event"""
+    db.session.delete(event)
 
 
 if __name__ == "__main__":

@@ -151,18 +151,19 @@ def show_alternate_activities():
     """Show alternate activities editing page"""
     user = crud.get_user_by_email(session['user_email'])
     names = []
+    ids = []
     for activity in user.activities:
-        names.append(activity.name)
+        name_tuple = (activity.name, activity.activity_id)
+        names.append(name_tuple)
     return render_template("alternate_activities.html", names=names)
 
-@app.route("/remove-alt-act/<name>")
-def remove_alternate_activity(name):
+@app.route("/remove-alt-act/<id>")
+def remove_alternate_activity(id):
     """Remove alternate activity"""
-    user = crud.get_user_by_email(session['user_email'])
-    activity = crud.get_activity_by_user_and_name(user, name)
+    activity = crud.get_activity_by_id(id)
     crud.remove_activity(activity)
     db.session.commit()
-    flash(f"{name} removed!")
+    flash(f"{activity.name} removed!")
     return redirect("/alternate-activities")
 
 @app.route("/add-activity", methods=["POST"])
@@ -185,7 +186,7 @@ def show_schedule():
     events = []
     for sorted_event in sorted_events:
         user_time = sorted_event.time.strftime("%I:%M %p")
-        events.append({"time": user_time, "description": sorted_event.description})
+        events.append({"time": user_time, "description": sorted_event.description, "id":sorted_event.event_id})
     return render_template("schedule.html", name=user.name, events=events)
 
 @app.route("/new-event")
@@ -210,6 +211,15 @@ def add_event():
     db.session.add(event)
     db.session.commit()
     flash(f"{user.email} {event_type} {event_time} {description} {reminder}")
+    return redirect("/schedule")
+    
+@app.route("/remove-event/<id>")
+def remove_event(id):
+    """Remove event"""
+    event = crud.get_event_by_id(id)
+    crud.remove_event(event)
+    db.session.commit()
+    flash(f"{event.description} removed!")
     return redirect("/schedule")
 
 @app.route("/checklist-start")
@@ -240,6 +250,7 @@ def show_checklist_item(order):
 
 @app.route("/edit-checklist")
 def show_checklist_edit_page():
+    """Show checklist editing page"""
     return render_template("checklist_edit.html")
 
 @app.route("/account-preferences")

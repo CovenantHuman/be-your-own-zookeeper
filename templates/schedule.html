@@ -4,6 +4,6 @@
     <h1>{{name}}'s Daily Schedule</h1>
     <a href="/new-event">Add an event</a>
     {% for event in events %}
-        <p>{{event["time"]}}    {{event["description"]}}</p>
+        <p>{{event["time"]}}    {{event["description"]}}    <a href="/remove-event/{{event['id']}}">Remove</a> </p> 
     {% endfor %}
 {% endblock %}
