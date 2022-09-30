@@ -4,7 +4,7 @@
 {% block body %}
 <h1>Edit Alternate Activities</h1>
 {% for name, id in names %}
-    <a href="/remove-alt-act/{{id}}">Remove {{name}}</a> <br>
+    <p> {{name}} <a href="/remove-alt-act/{{id}}">Remove</a></p>
 {% endfor %}
 <form action="/add-activity" method="POST">
     <label for="new_activity">Add a new activity</label>
