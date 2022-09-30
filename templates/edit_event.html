@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %} Edit Event{% endblock %}
+{% block body %} 
+    <h1>Edit Event</h1>
+    <form action="/edit-event/{{id}}" method="POST">
+        <label for="event_type">Event type:</label>
+        <select name="event_type" id="event_type"> 
+            {% if event_type == "walk" %}
+                <option value="walk" selected>Walk/Alternate Activity</option>
+                <option value="custom">Custom</option>
+            {% else %}
+                <option value="walk">Walk/Alternate Activity</option>
+                <option value="custom" selected>Custom</option>
+            {% endif %}
+        </select><br>
+        <label for="time">Reminder Time (PDT):</label>
+        <input type="time" id="time" name="time" value="{{time}}" required> <br>
+        <label for="description">Description: </label>
+        <input type="text" id="description" name="description" value="{{description}}" required><br>
+        <label for="reminder">Click the box to recieve a text reminder:<label>
+        {% if reminder %}
+            <input type="checkbox" id="reminder" name="reminder" checked>
+        {% else %}
+            <input type="checkbox" id="reminder" name="reminder">
+        {% endif %}
+        <input type="submit">
+    </form>
+{% endblock %}

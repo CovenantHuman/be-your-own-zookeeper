@@ -143,7 +143,7 @@ def set_weather_preferences():
                                         day, 
                                         night)
     db.session.commit()
-    flash("Weathe settings updated!")
+    flash("Weather settings updated!")
     return redirect("/user-homepage")
 
 @app.route("/alternate-activities")
@@ -210,9 +210,38 @@ def add_event():
     event = crud.create_event(user, event_type, event_time, description, reminder)
     db.session.add(event)
     db.session.commit()
-    flash(f"{user.email} {event_type} {event_time} {description} {reminder}")
+    flash(f"{description} added!")
     return redirect("/schedule")
     
+
+@app.route("/event-edit/<id>")
+def show_edit_event(id):
+    event = crud.get_event_by_id(id)
+    return render_template("edit_event.html", 
+                            id=id, 
+                            event_type=event.event_type, 
+                            time=datetime.datetime.strftime(event.time, "%H:%M"), 
+                            description=event.description, 
+                            reminder=event.reminder)
+
+@app.route("/edit-event/<id>", methods=["POST"])
+def edit_event(id):
+    event = crud.get_event_by_id(id)
+    event_type = request.form.get("event_type")
+    event_time = request.form.get("time")
+    event_time = datetime.datetime.strptime(event_time, "%H:%M")
+    description = request.form.get("description")
+    reminder = request.form.get("reminder")
+    if reminder is None:
+        reminder = False
+    else:
+        reminder = True 
+    crud.edit_event(event, event_type, event_time, description, reminder)
+    db.session.commit()
+    flash(f"{description} updated!")
+    return redirect("/schedule")
+
+
 @app.route("/remove-event/<id>")
 def remove_event(id):
     """Remove event"""

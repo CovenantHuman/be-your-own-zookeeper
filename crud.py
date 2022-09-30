@@ -138,6 +138,13 @@ def create_event(user, event_type, time, description, reminder):
                 reminder=reminder)
     return event
 
+def edit_event(event, event_type, time, description, reminder):
+    """Edit an existing event"""
+    event.event_type = event_type
+    event.time = time
+    event.description = description
+    event.reminder = reminder
+
 def get_events_by_time(time):
     """Get events by time"""
     return Event.query.filter(Event.time == time).all()
