@@ -3,4 +3,8 @@
 
 {% block body %}
 <h1>Edit Checklist</h1>
+{% for question, advice, id in items %}
+    <p> {{question}} <a href="/remove-checklist-item/{{id}}">Remove</a>  <a href="/edit-individual-checklist-item/{{id}}">Edit</a></p>
+{% endfor %}
+<a href="/new-checklist-item">Add a New Checklist Item</a>
 {% endblock %}

@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Edit Checklist Item{% endblock %}
+{% block body %} 
+    <h1>Edit Checklist Item</h1>
+    <form action="/edit-checklist-item/{{id}}" method="POST">
+        <label for="question">Question:</label>
+        <input type="text" id="question" name="question" value="{{question}}" required> <br>
+        <label for="advice" >Advice (if answer to Question is no):  </label>
+        <input type="text" id="advice" name="advice" value="{{advice}}" required><br>
+        <input type="submit">
+    </form>
+{% endblock %}

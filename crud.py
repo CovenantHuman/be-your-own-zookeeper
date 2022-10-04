@@ -104,6 +104,20 @@ def create_default_checklist(user):
                                                 7))
     return new_checklist
 
+def get_checklist_item_by_id(id):
+    return ChecklistItem.query.filter(ChecklistItem.item_id == id).first()
+
+def edit_checklist_item(item, question, advice):
+    item.question = question
+    item.advice = advice
+
+def delete_checklist_item(user, item):
+    order = item.order
+    db.session.delete(item)
+    for instance in user.checklist_items:
+        if instance.order > order:
+            instance.order -= 1
+
 def create_activity(user, name):
     """Create a new activity."""
     activity = Activity(activity_id=uuid.uuid4(), 

@@ -151,7 +151,6 @@ def show_alternate_activities():
     """Show alternate activities editing page"""
     user = crud.get_user_by_email(session['user_email'])
     names = []
-    ids = []
     for activity in user.activities:
         name_tuple = (activity.name, activity.activity_id)
         names.append(name_tuple)
@@ -280,7 +279,60 @@ def show_checklist_item(order):
 @app.route("/edit-checklist")
 def show_checklist_edit_page():
     """Show checklist editing page"""
-    return render_template("checklist_edit.html")
+    user = crud.get_user_by_email(session['user_email'])
+    items = []
+    for item in user.checklist_items:
+        item_info = [item.question, item.advice, item.item_id]
+        items.append(item_info)
+    return render_template("checklist_edit.html", items=items)
+
+@app.route("/new-checklist-item")
+def show_new_checklist_item_page():
+    """Show page for adding a new item to the checklist."""
+    return render_template("add_checklist_item.html")
+
+@app.route("/add-checklist-item", methods=["POST"])
+def add_checklist_item():
+    """Add a new item to the checklist."""
+    user = crud.get_user_by_email(session['user_email'])
+    current_items = user.checklist_items
+    order = len(current_items) + 1
+    question = request.form.get("question")
+    advice = request.form.get("advice")
+    checklist_item = crud.create_checklist_item(user, question, advice, order)
+    db.session.add(checklist_item)
+    db.session.commit()
+    flash(f"Added: {question}")
+    return redirect("/edit-checklist")
+
+@app.route("/edit-individual-checklist-item/<id>")
+def show_edit_checklist_item_page(id):
+    item = crud.get_checklist_item_by_id(id)
+    return render_template("edit_checklist_item.html", 
+                            id=item.item_id, 
+                            question=item.question,
+                            advice=item.advice)
+
+@app.route("/edit-checklist-item/<id>", methods=["POST"])
+def edit_chcklist_item(id):
+    item = crud.get_checklist_item_by_id(id)
+    question = request.form.get("question")
+    advice = request.form.get("advice")
+    crud.edit_checklist_item(item, question, advice)
+    db.session.commit()
+    flash(f"Edited {question}")
+    return redirect("/edit-checklist")
+
+
+@app.route("/remove-checklist-item/<id>")
+def remove_checklist_item(id):
+    """Remove item from checklist"""
+    user = crud.get_user_by_email(session['user_email'])
+    item = crud.get_checklist_item_by_id(id)
+    crud.delete_checklist_item(user, item)
+    db.session.commit()
+    flash(f"Removed {item.question}")
+    return redirect("/edit-checklist")
 
 @app.route("/account-preferences")
 def show_account_preferences():
