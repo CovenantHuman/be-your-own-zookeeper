@@ -5,6 +5,7 @@ import os
 from twilio.rest import Client
 from flask_crontab import Crontab
 from server import app
+import weather
 
 crontab = Crontab(app)
 
@@ -31,7 +32,15 @@ def message_sender():
     events = crud.get_events_by_time(now)
     for event in events:
         if event.reminder:
-            send_message(event.description)
+            if event.event_type == "walk":
+                user = event.user
+                walking = weather.get_walking_weather(user)
+                if not walking:
+                    activity = crud.get_random_activity(user)
+                    message = "It's not walking weather. Try: " + activity.name
+                    send_message(message)
+            else:
+                send_message(event.description)
 
 
 

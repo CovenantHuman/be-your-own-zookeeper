@@ -3,6 +3,7 @@
 from model import db, User, ChecklistItem, Event, Activity, connect_to_db
 import uuid
 from passlib.hash import pbkdf2_sha256
+import random
 
 def create_user(email, password, name, zipcode):
     """Create a new user."""
@@ -123,6 +124,10 @@ def create_default_activities(user):
 def get_activity_by_id(id):
     """Get activity for a given id"""
     return Activity.query.filter(Activity.activity_id == id).first()
+
+def get_random_activity(user):
+    activities = user.activities
+    return random.choice(activities)
 
 def remove_activity(activity):
     """Remove activity"""
