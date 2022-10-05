@@ -282,21 +282,23 @@ def show_checklist_edit_page():
     user = crud.get_user_by_email(session['user_email'])
     items = []
     for item in user.checklist_items:
-        item_info = [item.question, item.advice, item.item_id]
+        item_info = [item.question, item.item_id, item.order]
         items.append(item_info)
     return render_template("checklist_edit.html", items=items)
 
 @app.route("/new-checklist-item")
 def show_new_checklist_item_page():
     """Show page for adding a new item to the checklist."""
-    return render_template("add_checklist_item.html")
+    user = crud.get_user_by_email(session['user_email'])
+    items = user.checklist_items
+    count = len(items) + 1 
+    return render_template("add_checklist_item.html", count=count)
 
 @app.route("/add-checklist-item", methods=["POST"])
 def add_checklist_item():
     """Add a new item to the checklist."""
     user = crud.get_user_by_email(session['user_email'])
-    current_items = user.checklist_items
-    order = len(current_items) + 1
+    order = request.form.get("order")
     question = request.form.get("question")
     advice = request.form.get("advice")
     checklist_item = crud.create_checklist_item(user, question, advice, order)
@@ -308,17 +310,24 @@ def add_checklist_item():
 @app.route("/edit-individual-checklist-item/<id>")
 def show_edit_checklist_item_page(id):
     item = crud.get_checklist_item_by_id(id)
+    user = crud.get_user_by_email(session["user_email"])
+    items = user.checklist_items
+    count = len(items) 
     return render_template("edit_checklist_item.html", 
                             id=item.item_id, 
                             question=item.question,
-                            advice=item.advice)
+                            advice=item.advice,
+                            position=item.order,
+                            count=count)
 
 @app.route("/edit-checklist-item/<id>", methods=["POST"])
 def edit_chcklist_item(id):
+    user = crud.get_user_by_email(session["user_email"])
     item = crud.get_checklist_item_by_id(id)
     question = request.form.get("question")
     advice = request.form.get("advice")
-    crud.edit_checklist_item(item, question, advice)
+    order = int(request.form.get("order"))
+    crud.edit_checklist_item(user, item, question, advice, order)
     db.session.commit()
     flash(f"Edited {question}")
     return redirect("/edit-checklist")

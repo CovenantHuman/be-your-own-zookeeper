@@ -7,6 +7,15 @@
         <input type="text" id="question" name="question" value="{{question}}" required> <br>
         <label for="advice" >Advice (if answer to Question is no):  </label>
         <input type="text" id="advice" name="advice" value="{{advice}}" required><br>
+        <select name="order" id="order">
+            {% for order in range(1, count+1) %}
+            {% if position == order %}
+            <option value="{{order}}" selected>{{order}}</option>
+            {% else %}
+            <option value="{{order}}">{{order}}</option>
+            {% endif %}
+            {% endfor %}
+        </select>
         <input type="submit">
     </form>
 {% endblock %}
