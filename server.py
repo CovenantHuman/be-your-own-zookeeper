@@ -262,10 +262,10 @@ def show_checklist_item(order):
     user = crud.get_user_by_email(session['user_email'])
     checklist_list = list(user.checklist_items)
     checklist_item_count = len(checklist_list)
-    if int(order) >= checklist_item_count:
+    if int(order) >= checklist_item_count+1:
         return render_template("checklist_end.html",
                                 name=user.name,
-                                total=checklist_item_count)
+                                total=checklist_item_count+1)
     else:
         for item in checklist_list:
             if item.order == int(order):
@@ -274,7 +274,7 @@ def show_checklist_item(order):
                                         question=item.question, 
                                         advice=item.advice,
                                         order=item.order,
-                                        total=checklist_item_count) 
+                                        total=checklist_item_count+1) 
 
 @app.route("/edit-checklist")
 def show_checklist_edit_page():
