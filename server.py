@@ -298,7 +298,7 @@ def show_new_checklist_item_page():
 def add_checklist_item():
     """Add a new item to the checklist."""
     user = crud.get_user_by_email(session['user_email'])
-    order = request.form.get("order")
+    order = int(request.form.get("order"))
     question = request.form.get("question")
     advice = request.form.get("advice")
     checklist_item = crud.create_checklist_item(user, question, advice, order)

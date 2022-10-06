@@ -130,10 +130,10 @@ def edit_checklist_item(user, item, question, advice, order):
     
 
 def delete_checklist_item(user, item):
+    order = item.order
     for instance in user.checklist_items:
         if instance.order > order:
             instance.order -= 1
-    order = item.order
     db.session.delete(item)
    
 
