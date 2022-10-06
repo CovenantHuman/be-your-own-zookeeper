@@ -110,6 +110,9 @@ def create_default_checklist(user):
 def get_checklist_item_by_id(id):
     return ChecklistItem.query.filter(ChecklistItem.item_id == id).first()
 
+def get_user_checklist_in_order(user):
+    return ChecklistItem.query.filter(ChecklistItem.user_id == user.user_id).order_by(ChecklistItem.order)
+
 def edit_checklist_item(user, item, question, advice, order):
     item.question = question
     item.advice = advice

@@ -281,7 +281,7 @@ def show_checklist_edit_page():
     """Show checklist editing page"""
     user = crud.get_user_by_email(session['user_email'])
     items = []
-    for item in user.checklist_items:
+    for item in crud.get_user_checklist_in_order(user):
         item_info = [item.question, item.item_id, item.order]
         items.append(item_info)
     return render_template("checklist_edit.html", items=items)
