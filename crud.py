@@ -61,7 +61,7 @@ def update_user_password(user, password):
 def create_checklist_item(user, question, advice, order):
     """Create a new checklist_item."""
     for checklist_item in user.checklist_items:
-        if checklist_item.order > order:
+        if checklist_item.order >= order:
             checklist_item.order += 1
     checklist_item = ChecklistItem(item_id=uuid.uuid4(), 
                                     user_id = user.user_id,
