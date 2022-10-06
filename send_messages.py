@@ -41,6 +41,8 @@ def message_sender():
                     activity = crud.get_random_activity(user)
                     message = "It's not walking weather. Try: " + activity.name
                     send_message(message)
+                else: 
+                    send_message(event.description)
             else:
                 send_message(event.description)
 
