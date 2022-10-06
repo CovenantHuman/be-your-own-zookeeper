@@ -10,6 +10,7 @@ import weather
 crontab = Crontab(app)
 
 def send_message(message):
+    """Send messages using twilio api"""
     account_sid = os.environ['TWILIO_ACCOUNT_SID']
     auth_token = os.environ['TWILIO_AUTH_TOKEN']
     client = Client(account_sid, auth_token)
@@ -24,6 +25,7 @@ def send_message(message):
 
 @crontab.job()
 def message_sender():
+    """Determine if there are any messages that need sending and what an appropriate message would be to send"""
     connect_to_db(app)
     now = datetime.now()
     now = datetime.strftime(now, "%I:%M %p")

@@ -108,18 +108,21 @@ def create_default_checklist(user):
     return new_checklist
 
 def get_checklist_item_by_id(id):
+    """Get checklist item by its id"""
     return ChecklistItem.query.filter(ChecklistItem.item_id == id).first()
 
 def get_user_checklist_in_order(user):
+    """Get user checklist in order by order"""
     return ChecklistItem.query.filter(ChecklistItem.user_id == user.user_id).order_by(ChecklistItem.order)
 
 def edit_checklist_item(user, item, question, advice, order):
+    """Edit an individual checklist item"""
     item.question = question
     item.advice = advice
     prev_order = item.order
     if prev_order > order:
         for checklist_item in user.checklist_items:
-            if checklist_item.order >= order:
+            if checklist_item.order >= order and checklist_item.order < prev_order:
                 checklist_item.order += 1
     elif prev_order < order:
         for checklist_item in user.checklist_items:
@@ -130,6 +133,7 @@ def edit_checklist_item(user, item, question, advice, order):
     
 
 def delete_checklist_item(user, item):
+    """Delete an individual checklist item"""
     order = item.order
     for instance in user.checklist_items:
         if instance.order > order:
@@ -159,6 +163,7 @@ def get_activity_by_id(id):
     return Activity.query.filter(Activity.activity_id == id).first()
 
 def get_random_activity(user):
+    """Get a random activity from a users alternate activities list"""
     activities = user.activities
     return random.choice(activities)
 

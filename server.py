@@ -215,6 +215,7 @@ def add_event():
 
 @app.route("/event-edit/<id>")
 def show_edit_event(id):
+    """Display the edit event page"""
     event = crud.get_event_by_id(id)
     return render_template("edit_event.html", 
                             id=id, 
@@ -225,6 +226,7 @@ def show_edit_event(id):
 
 @app.route("/edit-event/<id>", methods=["POST"])
 def edit_event(id):
+    """Edit event"""
     event = crud.get_event_by_id(id)
     event_type = request.form.get("event_type")
     event_time = request.form.get("time")
@@ -309,6 +311,7 @@ def add_checklist_item():
 
 @app.route("/edit-individual-checklist-item/<id>")
 def show_edit_checklist_item_page(id):
+    """Display edit checklist item page"""
     item = crud.get_checklist_item_by_id(id)
     user = crud.get_user_by_email(session["user_email"])
     items = user.checklist_items
@@ -322,6 +325,7 @@ def show_edit_checklist_item_page(id):
 
 @app.route("/edit-checklist-item/<id>", methods=["POST"])
 def edit_chcklist_item(id):
+    """Edit Checklist Item"""
     user = crud.get_user_by_email(session["user_email"])
     item = crud.get_checklist_item_by_id(id)
     question = request.form.get("question")
