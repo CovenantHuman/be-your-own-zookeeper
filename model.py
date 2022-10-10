@@ -1,6 +1,5 @@
 """Models for Be Your Own Zookeeper"""
 
-from email.policy import default
 from flask_sqlalchemy import SQLAlchemy
 from sqlalchemy.dialects.postgresql import UUID
 
