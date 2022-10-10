@@ -4,17 +4,16 @@ import os
 OPEN_WEATHER_KEY = os.environ["OPEN_WEATHER_KEY"]
 
 def convert_kelvin_to_celsius(kelvin):
-    return (kelvin-273.15)
+    return round(kelvin-273.15)
 
 def convert_kelvin_to_fahrenheit(kelvin):
-    return (((kelvin-273.15)*(9/5))+32)
+    return round(((kelvin-273.15)*(9/5))+32)
 
 def convert_meters_per_second_to_miles_an_hour(meters_per_second):
-    return (meters_per_second*2.237)
+    return round(meters_per_second*2.237)
 
-def get_walking_weather(user):
+def get_walking_weather(zipcode, user):
     """Takes in a user and returns whether the current weather is fit for walking for them."""
-    zipcode = user.zipcode
     zip_with_country_code = zipcode + ",us"
     url = "https://api.openweathermap.org/data/2.5/weather"
     payload = {"zip": zip_with_country_code, "appid": OPEN_WEATHER_KEY}
@@ -30,7 +29,10 @@ def get_walking_weather(user):
     now = data['dt']
     sunrise = data['sys']['sunrise']
     sunset = data['sys']['sunset']
+    description = data['weather'][0]['description']
+    real_temp_in_kelvin = data['main']['temp']
     
+    is_imperial = user.is_imperial
     is_fahrenheit = user.is_fahrenheit
     max_temp = user.max_temp
     min_temp = user.min_temp
@@ -42,11 +44,17 @@ def get_walking_weather(user):
     user_snow = user.snow
     user_daylight = user.daylight
     user_night = user.night
+    activities = user.activities
+    activity_names = []
+    for activity in activities:
+        activity_names.append(activity.name)
 
     if is_fahrenheit:
         feels_like = convert_kelvin_to_fahrenheit(temp_in_kelvin)
+        real_temp = convert_kelvin_to_fahrenheit(real_temp_in_kelvin)
     else:
         feels_like = convert_kelvin_to_celsius(temp_in_kelvin)
+        real_temp = convert_kelvin_to_fahrenheit(real_temp_in_kelvin)
 
     wind_in_imperial = convert_meters_per_second_to_miles_an_hour(wind_in_metric)
 
@@ -78,6 +86,25 @@ def get_walking_weather(user):
     if ((max_temp >= feels_like) and (min_temp <= feels_like) and (max_hum >= humidity) and 
     (wind >= wind_in_imperial) and (max_clouds >= clouds) and (min_clouds <= clouds) and 
     (rain_filter) and (snow_filter)):
-        return ((user_daylight == daylight) or (user_night != daylight))
+        walking = ((user_daylight == daylight) or (user_night != daylight))
     else:
-        return False
+        walking = False
+
+    if is_imperial:
+        display_wind = wind_in_imperial
+    else:
+        display_wind = wind_in_metric
+
+    return {"walking": walking,
+            "description": description, 
+            "real_temp": real_temp, 
+            "feels_like": feels_like, 
+            "is_fahrenheit": is_fahrenheit, 
+            "humidity": humidity, 
+            "display_wind": display_wind, 
+            "is_imperial": is_imperial, 
+            "clouds": clouds, 
+            "rain": rain, 
+            "snow": snow, 
+            "daylight": daylight,
+            "activities": activity_names}

@@ -36,8 +36,8 @@ def message_sender():
         if event.reminder:
             if event.event_type == "walk":
                 user = event.user
-                walking = weather.get_walking_weather(user)
-                if not walking:
+                walking = weather.get_walking_weather(user.zipcode, user)
+                if not walking["walking"]:
                     activity = crud.get_random_activity(user)
                     message = "It's not walking weather. Try: " + activity.name
                     send_message(message)

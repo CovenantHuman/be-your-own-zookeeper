@@ -7,11 +7,15 @@ import crud
 from model import connect_to_db, db
 from passlib.hash import pbkdf2_sha256
 import datetime
+import weather
 
 app = Flask(__name__)
 app.secret_key = "dev"
 app.jinja_env.undefined = StrictUndefined
 OPEN_WEATHER_KEY = os.environ["OPEN_WEATHER_KEY"]
+EMAIL = os.environ["EMAIL"]
+PASSWORD = os.environ["PASSWORD"]
+NAME = os.environ["NAME"]
 
 @app.route("/")
 def show_homepage():
@@ -437,52 +441,23 @@ def process_logout():
 def process_get_weather():
     """Take in the zipcode and gets the weather"""
     zipcode = request.args.get("zipcode")
-    zip_with_country_code = zipcode + ",us"
-    url = "https://api.openweathermap.org/data/2.5/weather"
-    payload = {"zip": zip_with_country_code, "appid": OPEN_WEATHER_KEY}
-    response = requests.get(url, params=payload)
-    data = response.json()
-    return jsonify(data)
-
-@app.route("/api/user")
-def process_get_user():
-    """Get user from session and jsonify them"""
     if "user_email" in session:
+        print("USER_EMAIL")
         user = crud.get_user_by_email(session["user_email"])
-        activities = []
-        for activity in user.activities:
-            activities.append(activity.name)
-        return jsonify({"max_temp": user.max_temp,
-                        "min_temp": user.min_temp,
-                        "is_fahrenheit": user.is_fahrenheit,
-                        "max_hum": user.max_hum,
-                        "max_wind_speed": user.max_wind_speed,
-                        "is_imperial": user.is_imperial,
-                        "max_clouds": user.max_clouds,
-                        "min_clouds": user.min_clouds,
-                        "rain": user.rain,
-                        "snow": user.snow,
-                        "daylight": user.daylight,
-                        "night": user.night,
-                        "activities": activities})
+        data = weather.get_walking_weather(zipcode, user)
     else:
-        return jsonify({"max_temp": 80,
-                        "min_temp": 60,
-                        "is_fahrenheit": True,
-                        "max_hum": 100,
-                        "max_wind_speed": 4,
-                        "is_imperial": True,
-                        "max_clouds": 100,
-                        "min_clouds": 0,
-                        "rain": False,
-                        "snow": False,
-                        "daylight": True,
-                        "night": False,
-                        "activities": ["Yoga", 
-                                        "Jumping jacks",
-                                        "Sit ups",
-                                        "Private dance party",
-                                        "Push ups"]})
+        if crud.get_user_by_email(EMAIL) != None:
+            print("NOT NONE")
+            crud.update_user_account_preferences(crud.get_user_by_email(EMAIL), NAME, EMAIL, zipcode, "")
+            user = crud.get_user_by_email(EMAIL)
+        else:
+            user, checklist, activities = crud.create_user(EMAIL, PASSWORD, NAME, zipcode)
+            db.session.add(user)
+            db.session.add_all(checklist)
+            db.session.add_all(activities)
+        db.session.commit()
+        data = weather.get_walking_weather(zipcode, user)
+    return jsonify(data)
 
 
 if __name__ == "__main__":
