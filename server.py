@@ -1,7 +1,6 @@
 """Server for self care app."""
 from flask import(Flask, render_template, request, flash, session, redirect, jsonify)
 from jinja2 import StrictUndefined
-import requests
 import os
 import crud
 from model import connect_to_db, db
