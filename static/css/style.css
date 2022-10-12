@@ -1,6 +1,6 @@
 body {
     background-image: url("/static/img/tom-barrett-hgGplX3PFBg-unsplash.jpg");
-    background-color: #3454d1; 
+    background-color: #02141B; 
     background-size: cover;
 }
 
@@ -12,20 +12,20 @@ p {
     font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
 }
 
+a {
+    color:#e78925;
+}
 
 .navbar {
     justify-content: space-around;
-    background-color:black;
+    background-color:#02141B;
 }
 
 .container {
-    background-color: white;
+    background-color: #352420;
     height: 100vh;
     overflow: auto; 
-}
-
-.navbar a {
-    color:white;
+    color: white;
 }
 
 p.flash-msg {
