@@ -4,24 +4,24 @@
 {% block body %}
 <h1>Account Preferences</h1>
 <form action="/update-account-preferences" class="account_preferences" method="POST">
-    <label for="email">Email: </label>
+    <label for="email">Email: </label> <br>
     <input type="email" id="email" name="email" value="{{email}}"> <br>
-    <label for="name">Name: </label>
+    <label for="name">Name: </label> <br>
     <input type="text" name="name" id="name" value="{{name}}"> <br>
-    <label for="zipcode">Zipcode: </label>
+    <label for="zipcode">Zipcode: </label> <br>
     <input type="text" name="zipcode" id="zipcode" value="{{zipcode}}"> <br>
-    <label for="phone">Phone number: </label>
-    <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value="{{phone}}" >
+    <label for="phone">Phone number: </label> <br>
+    <input type="tel" id="phone" name="phone" pattern="[0-9]{3}-[0-9]{3}-[0-9]{4}" value="{{phone}}" > <br>
     <p>Phone numbers should be in the format 555-555-5555</p>
     <input type="submit">
 </form>
 <h2>Change Password</h2>
 <form action="/update-password" class="change_password" method="POST">
-    <label for="old_password">Current Password: </label>
+    <label for="old_password">Current Password: </label> <br>
     <input type="password" name="old_password" id="old_password" required> <br>
-    <label for="new_password">New Password (8 characters minimum): </label>
+    <label for="new_password">New Password (8 characters minimum): </label> <br>
     <input type="password" name="new_password" id="new_password" minlength="8" required> <br>
-    <label for="confirm_password">Confirm New Password: </label>
+    <label for="confirm_password">Confirm New Password: </label> <br>
     <input type="password" name="confirm_password" id="confirm_password" required> <br>
     <input type="submit">
 </form>

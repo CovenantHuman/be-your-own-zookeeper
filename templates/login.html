@@ -4,10 +4,10 @@
 {% block body %}
 <h1>Please Log In!</h1>
 <form action="/login-user" method="POST" class="user-login">
-    <label for="email">Please enter your email address:</label>
+    <label for="email">Email address:</label> <br>
     <input type="email" name="email" id="email" required> <br>
-    <label for="password">Please enter your password:</label>
-    <input type="password" name="password" id="password" required>
+    <label for="password">Password:</label> <br>
+    <input type="password" name="password" id="password" required> <br>
     <input type="submit">
 </form>
 {% endblock %}
