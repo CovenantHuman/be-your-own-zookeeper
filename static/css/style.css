@@ -5,15 +5,32 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    font-family: Georgia, 'Times New Roman', Times, serif;
+    font-family: 'Raleway', sans-serif;
+    margin: 1% auto;
 }
 
 p {
-    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-family: 'Open Sans', sans-serif;
 }
 
 a {
     color:#e78925;
+}
+
+ul {
+    list-style: inside;
+}
+
+li {
+    margin: 1% auto;
+}
+
+input {
+    margin: 1% auto;
+}
+
+select {
+    margin: 1% auto;
 }
 
 .navbar {
@@ -22,17 +39,20 @@ a {
 }
 
 .container {
-    background-color: #352420;
+    background-color: rgba(53,36,32,.83);
     height: 100vh;
     overflow: auto; 
-    color: white;
+    color: whitesmoke;
+    padding-left: 10%;  
+    padding-top: 2%;  
 }
 
 a:hover {
-    color: #c57330;
+    color: #E7BE9C;
 }
 
 p.flash-msg {
-    color: white;
+    color: whitesmoke;
+    background-color: #0F3A4B;
 }
 
