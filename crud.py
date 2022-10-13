@@ -75,13 +75,11 @@ def create_default_checklist(user):
     new_checklist = []
     new_checklist.append(create_checklist_item(user, 
                                                 "Have you had water recently?", 
-                                                "Try drinking a small glass of water. \
-                                                If you realize you're thirsty, go ahead and have more.",
+                                                "Try drinking a small glass of water. If you realize you're thirsty, go ahead and have more.",
                                                 1))
     new_checklist.append(create_checklist_item(user,
                                                 "Have you eaten recently?",
-                                                "Try having a small snack. \
-                                                If you realize you're hungry, go ahead and have more.",
+                                                "Try having a small snack. If you realize you're hungry, go ahead and have more.",
                                                 2))
     new_checklist.append(create_checklist_item(user,
                                                 "Have you moved your body recently?",
@@ -89,8 +87,7 @@ def create_default_checklist(user):
                                                 3))
     new_checklist.append(create_checklist_item(user,
                                                 "Have you gotten enough sleep recently?",
-                                                "Try lying down for a little while. \
-                                                If you realize you're tired, go ahead and have a longer rest.",
+                                                "Try lying down for a little while. If you realize you're tired, go ahead and have a longer rest.",
                                                 4))
     new_checklist.append(create_checklist_item(user,
                                                 "Have you taken all the medications you're supposed to take?",
@@ -102,8 +99,7 @@ def create_default_checklist(user):
                                                 6))
     new_checklist.append(create_checklist_item(user,
                                                 "Have you bathed recently?",
-                                                "Try taking a bath or a shower. \
-                                                If you don't have time, try washing your hands and face.",
+                                                "Try taking a bath or a shower. If you don't have time, try washing your hands and face.",
                                                 7))
     return new_checklist
 

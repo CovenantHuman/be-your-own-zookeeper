@@ -4,9 +4,9 @@
     <h1>Add Checklist Item</h1>
     <form action="/add-checklist-item" method="POST">
         <label for="question">Question:</label>
-        <input type="text" id="question" name="question" required> <br>
+        <input type="text" id="question" name="question" size="70" required> <br>
         <label for="advice">Advice (if answer to Question is no):  </label>
-        <input type="text" id="advice" name="advice" required><br>
+        <input type="text" id="advice" name="advice" size="70" required><br>
         <label for="order">Position in the checklist:</label>
         <select name="order" id="order">
             {% for order in range(1, count+1) %}
