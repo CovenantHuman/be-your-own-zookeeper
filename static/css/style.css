@@ -11,7 +11,7 @@ h1, h2, h3, h4, h5, h6 {
 
 p {
     font-family: 'Open Sans', sans-serif;
-    margin: 1rem auto;
+    margin: 1rem;
 }
 
 a {
@@ -27,7 +27,7 @@ li {
 }
 
 input {
-    margin: 1% auto;
+    margin: 1rem auto;
 }
 
 select {
@@ -55,7 +55,7 @@ a:hover {
 p.flash-msg {
     color: whitesmoke;
     background-color: #0F3A4B;
-    margin: 0;
+    margin-bottom: 0;
     padding-left: 10%;
 }
 
