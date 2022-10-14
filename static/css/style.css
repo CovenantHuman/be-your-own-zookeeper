@@ -44,7 +44,8 @@ select {
     height: 100vh;
     overflow: auto; 
     color: whitesmoke;
-    padding-left: 10%;  
+    padding-left: 10%;
+    padding-right:10%;  
     padding-top: 2%;  
 }
 
