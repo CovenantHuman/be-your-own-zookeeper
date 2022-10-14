@@ -55,7 +55,7 @@ a:hover {
 p.flash-msg {
     color: whitesmoke;
     background-color: #0F3A4B;
-    margin-bottom: 0;
+    margin: 0;
     padding-left: 10%;
 }
 
