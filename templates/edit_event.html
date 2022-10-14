@@ -3,7 +3,7 @@
 {% block body %} 
     <h1>Edit Event</h1>
     <form action="/edit-event/{{id}}" method="POST">
-        <label for="event_type">Event type:</label>
+        <label for="event_type">Event type:</label><br>
         <select name="event_type" id="event_type"> 
             {% if event_type == "walk" %}
                 <option value="walk" selected>Walk/Alternate Activity</option>
@@ -13,15 +13,15 @@
                 <option value="custom" selected>Custom</option>
             {% endif %}
         </select><br>
-        <label for="time">Reminder Time (PDT):</label>
+        <label for="time">Reminder Time (PDT):</label><br>
         <input type="time" id="time" name="time" value="{{time}}" required> <br>
-        <label for="description">Description: </label>
+        <label for="description">Description: </label><br>
         <input type="text" id="description" name="description" value="{{description}}" required><br>
-        <label for="reminder">Click the box to recieve a text reminder:<label>
+        <label for="reminder">Click the box to recieve a text reminder:</label>
         {% if reminder %}
-            <input type="checkbox" id="reminder" name="reminder" checked>
+            <input type="checkbox" id="reminder" name="reminder" checked><br>
         {% else %}
-            <input type="checkbox" id="reminder" name="reminder">
+            <input type="checkbox" id="reminder" name="reminder"><br>
         {% endif %}
         <input type="submit">
     </form>
