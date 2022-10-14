@@ -94,15 +94,15 @@ function displayWeather(walking,
 
     document.querySelector('.weather').innerHTML = 
             `<h3>${walkingWeather}</h3>
-            <p>The current weather is ${weatherDescription}. </p>
-            <p>The current temperature is ${displayTemp} ${tempUnit}.</p>
-            <p>It feels like ${displayFeels} ${tempUnit}.</p> 
-            <p>The humidity is currently ${humidity}%.</p>
-            <p>The wind speed is ${displayWind} ${windUnit}.</p>
-            <p>It is ${clouds}% cloudy.</p>
-            <p>It ${rainState} raining.</p>
-            <p>It ${snowState} snowing.</p>
-            <p>It ${dayState} between sunrise and sunset.</p>
+            <p>The current weather is ${weatherDescription}. 
+            The current temperature is ${displayTemp} ${tempUnit}.
+            It feels like ${displayFeels} ${tempUnit}.
+            The humidity is currently ${humidity}%.
+            The wind speed is ${displayWind} ${windUnit}.
+            It is ${clouds}% cloudy.
+            It ${rainState} raining.
+            It ${snowState} snowing.
+            It ${dayState} between sunrise and sunset.</p>
             `;
 
         if (!walking) {
