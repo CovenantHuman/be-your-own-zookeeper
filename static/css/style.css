@@ -11,7 +11,7 @@ h1, h2, h3, h4, h5, h6 {
 
 p {
     font-family: 'Open Sans', sans-serif;
-    margin: 1rem;
+    margin: 1rem auto;
 }
 
 a {
@@ -27,7 +27,7 @@ li {
 }
 
 input {
-    margin: 1rem auto;
+    margin: 1% auto;
 }
 
 select {
