@@ -6,12 +6,17 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Raleway', sans-serif;
-    margin: 1.5rem auto;
+    margin: 2rem auto;
 }
 
 p {
     font-family: 'Open Sans', sans-serif;
     margin: 1rem auto;
+}
+
+small {
+    font-family: 'Open Sans', sans-serif;
+    margin: 0;
 }
 
 a {
@@ -23,7 +28,7 @@ ul {
 }
 
 li {
-    margin: .5rem auto;
+    margin: .25rem auto;
 }
 
 input {
@@ -32,6 +37,11 @@ input {
 
 select {
     margin: 1rem auto;
+}
+
+fieldset {
+    padding: .5rem .5rem;
+    border: 1px whitesmoke solid;
 }
 
 .navbar {
@@ -51,6 +61,10 @@ select {
 
 .anchors {
     margin: 1rem auto;
+}
+
+.radio {
+    margin: auto 1.5rem;
 }
 
 a:hover {

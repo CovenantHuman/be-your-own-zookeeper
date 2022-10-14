@@ -7,11 +7,11 @@
     {% if temp_unit == true %}
     <fieldset>
         <legend>Temperature Units:</legend>
-        <div>
+        <div class="radio">
           <input type="radio" id="celsius" name="temp_unit" value="celsius">
           <label for="celsius">Celsius</label>
         </div>
-        <div>
+        <div class="radio">
           <input type="radio" id="fahrenheit" name="temp_unit" value="fahrenheit" checked>
           <label for="fahrenheit">Fahrenheit</label>
         </div>
@@ -19,37 +19,41 @@
     {% else %}
     <fieldset>
         <legend>Temperature Units:</legend>
-        <div>
+        <div class="radio">
           <input type="radio" id="celsius" name="temp_unit" value="celsius" checked>
           <label for="celsius">Celsius</label>
         </div>
-        <div>
+        <div class="radio">
           <input type="radio" id="fahrenheit" name="temp_unit" value="fahrenheit">
           <label for="fahrenheit">Fahrenheit</label>
         </div>
     </fieldset>
     {% endif %}
     {% if temp_unit == true %}
-        <label for="max_temp">Maximum walking temperature (Feels like): </label>
-        <input type="number" id="max_temp" name="max_temp" value="{{max_temp}}" max="90" min="0"> <br>
-        <label for="min_temp">Minimum walking temperature (Feels like): </label>
-        <input type="number" id="min_temp" name="min_temp" value="{{min_temp}}" max="90" min="0"> <br>
+        <fieldset>
+            <legend>Temperature: </legend>
+            <label for="max_temp">Maximum walking temperature (Feels like): </label>
+            <input type="number" id="max_temp" name="max_temp" value="{{max_temp}}" max="90" min="0"> <br>
+            <label for="min_temp">Minimum walking temperature (Feels like): </label>
+            <input type="number" id="min_temp" name="min_temp" value="{{min_temp}}" max="90" min="0"> <br>
+        </fieldset>
     {% else %}
-        <label for="max_temp">Maximum walking temperature (Feels like): </label>
-        <input type="number" id="max_temp" name="max_temp" value="{{max_temp}}" max="32" min="-17"> <br>
-        <label for="min_temp">Minimum walking temperature (Feels like): </label>
-        <input type="number" id="min_temp" name="min_temp" value="{{min_temp}}" max="32" min="-17"> <br>
+        <fieldset>
+            <legend>Temperature: </legend>
+            <label for="max_temp">Maximum walking temperature (Feels like): </label>
+            <input type="number" id="max_temp" name="max_temp" value="{{max_temp}}" max="32" min="-17"> <br>
+            <label for="min_temp">Minimum walking temperature (Feels like): </label>
+            <input type="number" id="min_temp" name="min_temp" value="{{min_temp}}" max="32" min="-17"> <br>
+        </fieldset>
     {% endif %}
-    <label for="max_hum">Maximum humidity (percentage):</label>
-    <input type="number" name="humidity" id="max_hum" value="{{max_hum}}" max="100" min="0"></input>
     {% if wind_unit == true %}
     <fieldset>
         <legend>Wind Speed Units:</legend>
-        <div>
+        <div class="radio">
           <input type="radio" id="metric" name="wind_unit" value="metric">
           <label for="metric">Metric</label>
         </div>
-        <div>
+        <div class="radio">
           <input type="radio" id="imperial" name="wind_unit" value="imperial" checked>
           <label for="imperial">Imperial</label>
         </div>
@@ -57,71 +61,82 @@
     {% else %}
     <fieldset>
         <legend>Wind Speed Units:</legend>
-        <div>
+        <div class="radio">
           <input type="radio" id="metric" name="wind_unit" value="metric" checked>
           <label for="metric">Metric</label>
         </div>
-        <div>
+        <div class="radio">
           <input type="radio" id="imperial" name="wind_unit" value="imperial">
           <label for="imperial">Imperial</label>
         </div>
     </fieldset>
     {% endif %}
-    <label for="max_wind">Maximum wind:</label>
-    <select name="wind" id="max_wind">
-        {% if max_wind_speed == 0 %}
-            <option value=0 selected>Calm</option>
-        {% else %}
-            <option value=0>Calm</option>
-        {% endif %}
-        {% if max_wind_speed == 1 %}
-            <option value=1 selected>Light Air</option>
-        {% else %}
-            <option value=1>Light Air</option>
-        {% endif %}
-        {% if max_wind_speed == 2 %}
-            <option value=2 selected>Light Breeze</option>
-        {% else %}
-            <option value=2>Light Breeze</option>
-        {% endif %}
-        {% if max_wind_speed == 3 %}
-            <option value=3 selected>Gentle Breeze</option>
-        {% else %}
-            <option value=3>Gentle Breeze</option>
-        {% endif %}
-        {% if max_wind_speed == 4 %}
-            <option value=4 selected>Moderate Breeze</option>
-        {% else %}
-            <option value=4>Moderate Breeze</option>
-        {% endif %}
-        {% if max_wind_speed == 5 %}
-            <option value=5 selected>Fresh Breeze</option>
-        {% else %}
-            <option value=5>Fresh Breeze</option>
-        {% endif %}
-        {% if max_wind_speed == 6 %}
-            <option value=6 selected>Strong Breeze</option>
-        {% else %}
-            <option value=6>Strong Breeze</option>
-        {% endif %}
-        {% if max_wind_speed == 7 %}
-            <option value=7 selected>Near Gale</option>
-        {% else %}
-            <option value=7>Near Gale</option>
-        {% endif %}
-    </select> <br>
-    <label for="max_clouds">Maximum cloud cover (percentage):</label>
-    <input type="number" name="max_clouds" id="max_clouds" value="{{max_clouds}}" max="100" min="0"></input> <br>
-    <label for="min_clouds">Minimum cloud cover (percentage):</label>
-    <input type="number" name="min_clouds" id="min_clouds" value="{{min_clouds}}" max="100" min="0"></input> <br>
+    <fieldset>
+        <legend>Wind: </legend>
+        <label for="max_wind">Maximum wind:</label>
+        <select name="wind" id="max_wind">
+            {% if max_wind_speed == 0 %}
+                <option value=0 selected>Calm</option>
+            {% else %}
+                <option value=0>Calm</option>
+            {% endif %}
+            {% if max_wind_speed == 1 %}
+                <option value=1 selected>Light Air</option>
+            {% else %}
+                <option value=1>Light Air</option>
+            {% endif %}
+            {% if max_wind_speed == 2 %}
+                <option value=2 selected>Light Breeze</option>
+            {% else %}
+                <option value=2>Light Breeze</option>
+            {% endif %}
+            {% if max_wind_speed == 3 %}
+                <option value=3 selected>Gentle Breeze</option>
+            {% else %}
+                <option value=3>Gentle Breeze</option>
+            {% endif %}
+            {% if max_wind_speed == 4 %}
+                <option value=4 selected>Moderate Breeze</option>
+            {% else %}
+                <option value=4>Moderate Breeze</option>
+            {% endif %}
+            {% if max_wind_speed == 5 %}
+                <option value=5 selected>Fresh Breeze</option>
+            {% else %}
+                <option value=5>Fresh Breeze</option>
+            {% endif %}
+            {% if max_wind_speed == 6 %}
+                <option value=6 selected>Strong Breeze</option>
+            {% else %}
+                <option value=6>Strong Breeze</option>
+            {% endif %}
+            {% if max_wind_speed == 7 %}
+                <option value=7 selected>Near Gale</option>
+            {% else %}
+                <option value=7>Near Gale</option>
+            {% endif %}
+        </select> <br>
+    </fieldset>
+    <fieldset>
+        <legend>Clouds: </legend>
+        <label for="max_clouds">Maximum cloud cover (percentage):</label>
+        <input type="number" name="max_clouds" id="max_clouds" value="{{max_clouds}}" max="100" min="0"></input> <br>
+        <label for="min_clouds">Minimum cloud cover (percentage):</label>
+        <input type="number" name="min_clouds" id="min_clouds" value="{{min_clouds}}" max="100" min="0"></input> <br>
+    </fieldset>
+    <fieldset> 
+        <legend>Humidity: </legend>
+        <label for="max_hum">Maximum humidity (percentage):</label>
+        <input type="number" name="humidity" id="max_hum" value="{{max_hum}}" max="100" min="0"></input>
+    </fieldset>
     {% if rain == true %}
     <fieldset>
         <legend>Rain:</legend>
-        <div>
+        <div class="radio">
           <input type="radio" id="rain-ok" name="rain" value="true" checked>
           <label for="rain-ok">Ok</label>
         </div>
-        <div>
+        <div class="radio">
           <input type="radio" id="rain-no" name="rain" value="false">
           <label for="rain-no">No Way</label>
         </div>
@@ -129,11 +144,11 @@
     {% else %}
     <fieldset>
         <legend>Rain:</legend>
-        <div>
+        <div class="radio">
           <input type="radio" id="rain-ok" name="rain" value="true">
           <label for="rain-ok">Ok</label>
         </div>
-        <div>
+        <div class="radio">
           <input type="radio" id="rain-no" name="rain" value="false" checked>
           <label for="rain-no">No Way</label>
         </div>
@@ -142,11 +157,11 @@
     {% if snow == true %}
     <fieldset>
         <legend>Snow:</legend>
-        <div>
+        <div class="radio">
           <input type="radio" id="snow-ok" name="snow" value="true" checked>
           <label for="snow-ok">Ok</label>
         </div>
-        <div>
+        <div class="radio">
           <input type="radio" id="snow-no" name="snow" value="false">
           <label for="snow-no">No Way</label>
         </div>
@@ -154,11 +169,11 @@
     {% else %}
     <fieldset>
         <legend>Snow:</legend>
-        <div>
+        <div class="radio">
           <input type="radio" id="snow-ok" name="snow" value="true">
           <label for="snow-ok">Ok</label>
         </div>
-        <div>
+        <div class="radio">
           <input type="radio" id="snow-no" name="snow" value="false" checked>
           <label for="snow-no">No Way</label>
         </div>
@@ -168,15 +183,15 @@
         {% if night == true %}
             <fieldset>
                 <legend>Time of Day to Walk:</legend>
-                <div>
+                <div class="radio">
                 <input type="radio" id="day" name="time" value="day">
                 <label for="day">Day</label>
                 </div>
-                <div>
+                <div class="radio">
                 <input type="radio" id="night" name="time" value="night">
                 <label for="night">Night</label>
                 </div>
-                <div>
+                <div class="radio">
                     <input type="radio" id="both" name="time" value="both" checked>
                     <label for="both">Both</label>
                 </div>
@@ -184,15 +199,15 @@
         {% else %}
             <fieldset>
                 <legend>Time of Day to Walk:</legend>
-                <div>
+                <div class="radio">
                 <input type="radio" id="day" name="time" value="day" checked>
                 <label for="day">Day</label>
                 </div>
-                <div>
+                <div class="radio">
                 <input type="radio" id="night" name="time" value="night">
                 <label for="night">Night</label>
                 </div>
-                <div>
+                <div class="radio">
                     <input type="radio" id="both" name="time" value="both">
                     <label for="both">Both</label>
                 </div>
@@ -201,15 +216,15 @@
     {% else %}
         <fieldset>
             <legend>Time of Day to Walk:</legend>
-            <div>
+            <div class="radio">
             <input type="radio" id="day" name="time" value="day">
             <label for="day">Day</label>
             </div>
-            <div>
+            <div class="radio">
             <input type="radio" id="night" name="time" value="night" checked>
             <label for="night">Night</label>
             </div>
-            <div>
+            <div class="radio">
                 <input type="radio" id="both" name="time" value="both">
                 <label for="both">Both</label>
             </div>
