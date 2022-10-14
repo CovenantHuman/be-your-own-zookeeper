@@ -6,11 +6,12 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
     font-family: 'Raleway', sans-serif;
-    margin: 1% auto;
+    margin: 1rem auto;
 }
 
 p {
     font-family: 'Open Sans', sans-serif;
+    margin: 1rem auto;
 }
 
 a {
@@ -22,7 +23,7 @@ ul {
 }
 
 li {
-    margin: 1% auto;
+    margin: 1rem auto;
 }
 
 input {
@@ -30,7 +31,7 @@ input {
 }
 
 select {
-    margin: 1% auto;
+    margin: 1rem auto;
 }
 
 .navbar {
@@ -54,7 +55,7 @@ a:hover {
 p.flash-msg {
     color: whitesmoke;
     background-color: #0F3A4B;
-    margin-bottom: 0;
+    margin: 0;
     padding-left: 10%;
 }
 
