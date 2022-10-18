@@ -1,6 +1,6 @@
 # Be Your Own Zookeeper
 
-Learn more about the developer: [LinkedIn](https://www.linkedin.com/in/michaela-healton/)
+Learn more about the developer: [Michaela Healton's LinkedIn](https://www.linkedin.com/in/michaela-healton/)
 
 Be Your Own Zookeeper is a fullstack web application that allows users to:
 
