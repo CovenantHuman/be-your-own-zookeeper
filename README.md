@@ -5,7 +5,7 @@ Learn more about the developer: [Michaela Healton's LinkedIn](https://www.linked
 Be Your Own Zookeeper is a fullstack web application that allows users to:
 
 - Check if their local weather is good for taking a walk
-- Set a daily schedule wiht optional text reminders for self care tasks
+- Set a daily schedule with optional text reminders for self care tasks
 - Consult a checklist of common reasons for feeling bad and recieve gentle advice for how to resolve those problems
 
 ![Be Your Own Zookeeper Homepage](/static/img/be-your-own-zookeeper-homepage.png)
@@ -18,7 +18,7 @@ The first way that Be Your Own Zookeeper does this is by allowing users to autom
 
 ![Be Your Own Zookeeper Logged In Homepage](/static/img/logged-in-homepage.png)
 
-Another important feature of Be Your Own Zookeeper is the daily schedule. This schedule allows users to set up a daily list of reminders that will be optionally texted to them at specific times. Moreover, if users want to take a walk, they can set the type of the reminder to indicate that, and at the time the reminder is sent that user's local weather will be checked against their customized weather preferences and the reminder that is sent will either send the user the personalized reminder text that they've set or a message declaring that the weather is not good for walking and offering a random one of the user's alternate activities as a suggestion. 
+Another important feature of Be Your Own Zookeeper is the daily schedule. This schedule allows users to set up a daily list of reminders that will be optionally texted to them at specific times. Moreover, if users want to take a walk, they can set the type of the reminder to indicate that. If they do at the time the reminder is sent that user's local weather will be checked against their customized weather preferences. The subsequent reminder will either send the user the personalized reminder text that they've set or a message declaring that the weather is not good for walking and offering a random one of the user's alternate activities as a suggestion. 
 
 ![Be Your Own Zookeeper Schedule Page](/static/img/schedule.png)
 
