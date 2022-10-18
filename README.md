@@ -1,5 +1,4 @@
 # Be Your Own Zookeeper
----
 
 Learn more about the developer: [LinkedIn](https://www.linkedin.com/in/michaela-healton/)
 
@@ -10,6 +9,8 @@ Be Your Own Zookeeper is a fullstack web application that allows users to:
 - Consult a checklist of common reasons for feeling bad and recieve gentle advice for how to resolve those problems
 
 ![Be Your Own Zookeeper Homepage](/static/img/be-your-own-zookeeper-homepage.png)
+
+## Features
 
 Be You Own Zookeeper was named for a quote from tumblr user soaringsearingphoenix ["The worst part of human adulthood is being your own zookeeper"](https://soaringsearingphoenix.tumblr.com/post/634871709833560064/like-i-have-to-make-sure-my-meals-are). It is in the spirit of this quote that Be Your Own Zookeeper aims to make self care a little simpler. 
 
@@ -41,3 +42,6 @@ Finally, there is the Be Your Own Zookeeper Checklist For When Everything Feels 
 - uuid
 - datetime
 - flask_crontab
+
+## Author
+Michaela Healton is a software engineer in San Francisco, CA. 
